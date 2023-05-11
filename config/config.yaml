@@ -1,0 +1,13 @@
+# Configuration file template
+# Modify the values below as deemed nescessary
+# See the documentation for more informations
+# ------------------------------------------------------------------------------
+
+# Workflow control
+# ----------------
+
+# Path to the output directory, will be created if it doesn´t exist
+workdir: /path/to/workdir
+
+# Additional parameters
+# ---------------------

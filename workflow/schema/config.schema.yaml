@@ -1,0 +1,12 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+
+description: Config File Schema
+
+properties:
+  
+  workdir:
+    type: string
+    description: Output directory
+  
+  required:
+    - workdir
