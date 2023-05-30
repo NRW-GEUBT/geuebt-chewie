@@ -36,10 +36,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     
-    - name: Install dependencies
-      run: |
-        sudo apt-get install -y patch
-    
     - name: Integration testing
       uses: snakemake/snakemake-github-action@v1.24.0
       with:

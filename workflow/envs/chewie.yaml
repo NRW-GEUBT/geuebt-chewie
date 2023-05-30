@@ -9,3 +9,4 @@ dependencies:
   - snakemake=7.24
   - biopython=1.79
   - r-base=4.2.2
+  - patch=2.7.6
