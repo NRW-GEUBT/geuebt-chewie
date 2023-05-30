@@ -1,0 +1,11 @@
+name: chewie
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pandas=1.5.3
+  - git=2.38.1
+  - snakemake=7.24
+  - biopython=1.79
+  - r-base=4.2.2
