@@ -31,8 +31,10 @@ rule all:
         "allele_calling/cgmlst/allele_profiles.tsv",
         "allele_calling/cgmlst/allele_statistics.tsv",
         "allele_calling/cgmlst/timestamps.tsv",
-        "join_clusters/merged_db/sample_cluster_information.tsv",
-        "join_clusters/merged_db/orphan_samples.tsv",
+        "join_clusters/main/merged_db/sample_cluster_information.tsv",
+        "join_clusters/main/merged_db/orphan_samples.tsv",
+        "join_clusters/sub/merged_db/sample_cluster_information.tsv",
+        "join_clusters/sub/merged_db/orphan_samples.tsv",
 
 
 # Includes --------------------------------------------------------------------

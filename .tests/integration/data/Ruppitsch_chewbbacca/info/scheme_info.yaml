@@ -1,0 +1,5 @@
+scheme_name: cgmlst
+species: Listeria_monocytogenes
+scheme_dir: /ngs-sw/Databases/cgMLST_BfR/Listeria_cgmlst_Ruppitsch_chewbbaca/cgmlst
+scheme_md5: c520c6e74d96a5ae5a6bb8bc792b8db0
+count_loci: 1691

@@ -1,5 +1,5 @@
 .snakemake
-.tests/integration/*
-!.tests/integration/data/*
+.tests/integration/
+!.tests/integration/data/
 !.tests/integration/config/*
 __pycache__

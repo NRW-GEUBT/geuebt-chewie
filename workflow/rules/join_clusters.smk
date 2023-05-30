@@ -38,20 +38,65 @@ rule make_join_list:
 
 
 # First join at main cluters level
-rule chewie_join:
+rule chewie_join_main:
     input:
         samplelist="common/sample_list.tsv",
         serovars="dummy/serovar_info.tsv",
     output:
-        outdir=directory("join_clusters"),
-        sample_cluster="join_clusters/merged_db/sample_cluster_information.tsv",
-        orphans="join_clusters/merged_db/orphan_samples.tsv",
+        outdir=directory("join_clusters/main/"),
+        sample_cluster="join_clusters/main/merged_db/sample_cluster_information.tsv",
+        orphans="join_clusters/main/merged_db/orphan_samples.tsv",
     params:
         chewie=os.path.join(config["chewie_path"], "chewieSnake_join.py"),
         clustering_method=config["clustering_method"],
-        distance_threshold=config["distance_threshold"],
-        subcluster_thresholds=config["subcluster_thresholds"],
-        external_cluster_names=config["external_cluster_names"],
+        distance_threshold=config["cluster_distance"],
+        external_main_clusters=config["external_main_clusters"],
+        distance_method=config["distance_method"],
+        species_shortname=config["species_shortname"],
+        conda_prefix={workflow.conda_prefix},
+    message:
+        "[Join clusters] Joining samples to precomputed subclusters with ChewieSnake-join"
+    threads:
+        # Using max cores
+        workflow.cores
+    conda:
+        "../envs/chewie.yaml"
+    log:
+        "logs/chewie_join.log"
+    shell:
+        """
+        exec 2> {log}
+
+        python {params.chewie} \
+            --sample_list {input.samplelist} \
+            --working_directory {output.outdir} \
+            --clustering_method {params.clustering_method} \
+            --distance_threshold {params.distance_threshold} \
+            --serovar_info {input.serovars} \
+            --external_cluster_names {params.external_main_clusters} \
+            --cluster \
+            --distance_method {params.distance_method} \
+            --species_shortname {params.species_shortname} \
+            --use_conda \
+            --condaprefix {params.conda_prefix} \
+            --threads {threads}
+        """
+
+
+# Then join at subcluster level
+rule chewie_join_sub:
+    input:
+        samplelist="common/sample_list.tsv",
+        serovars="dummy/serovar_info.tsv",
+    output:
+        outdir=directory("join_clusters/sub/"),
+        sample_cluster="join_clusters/sub/merged_db/sample_cluster_information.tsv",
+        orphans="join_clusters/sub/merged_db/orphan_samples.tsv",
+    params:
+        chewie=os.path.join(config["chewie_path"], "chewieSnake_join.py"),
+        clustering_method=config["clustering_method"],
+        distance_threshold=config["subcluster_distance"],
+        external_sub_clusters=config["external_sub_clusters"],
         distance_method=config["distance_method"],
         species_shortname=config["species_shortname"],
         conda_prefix={workflow.conda_prefix},
@@ -73,9 +118,8 @@ rule chewie_join:
             --working_directory {output.outdir} \
             --clustering_method {params.clustering_method} \
             --distance_threshold {params.distance_threshold} \
-            --subcluster_thresholds {params.subcluster_thresholds} \
             --serovar_info {input.serovars} \
-            --external_cluster_names {params.external_cluster_names} \
+            --external_cluster_names {params.external_sub_clusters} \
             --cluster \
             --distance_method {params.distance_method} \
             --species_shortname {params.species_shortname} \
@@ -83,10 +127,6 @@ rule chewie_join:
             --condaprefix {params.conda_prefix} \
             --threads {threads}
         """
-
-
-# Then join at subcluster level
-
 
 # rule stage_clusters:
     # Need to sort between existing and new clusters, rename etc..
