@@ -38,7 +38,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        sudo apt-get -y patch
+        sudo apt-get install -y patch
     
     - name: Integration testing
       uses: snakemake/snakemake-github-action@v1.24.0
