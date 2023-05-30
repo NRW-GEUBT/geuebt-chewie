@@ -57,7 +57,6 @@ rule chewie_join_main:
     message:
         "[Join clusters] Joining samples to precomputed subclusters with ChewieSnake-join"
     threads:
-        # Using max cores
         workflow.cores
     conda:
         "../envs/chewie.yaml"
@@ -103,7 +102,6 @@ rule chewie_join_sub:
     message:
         "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
     threads:
-        # Using max cores
         workflow.cores
     conda:
         "../envs/chewie.yaml"

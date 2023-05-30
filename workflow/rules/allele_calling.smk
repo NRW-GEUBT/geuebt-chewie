@@ -21,7 +21,6 @@ checkpoint chewie_call:
     message:
         "[Allele calling] Calling alleles using ChewieSnake"
     threads:
-        # Using max cores
         workflow.cores
     conda:
         "../envs/chewie.yaml"

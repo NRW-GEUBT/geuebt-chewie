@@ -24,4 +24,3 @@ def aggregate_samples(wildcards):
         os.path.join(checkpoint_output, "{wildcard_name}.fa")
     ).wildcard_name
     return expand("file/path/pattern/{wildcard_name}.ext", wildcard_name=ids_map)
-
