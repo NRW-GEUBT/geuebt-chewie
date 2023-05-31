@@ -10,4 +10,3 @@ dependencies:
   - biopython=1.79
   - r-base=4.2.2
   - patch=2.7.6
-  - gcc=12.2.0
