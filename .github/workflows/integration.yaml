@@ -36,6 +36,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     
+    -name: Unpack test data
+      run: |
+        mkdir -p .tests/integration/data/Ruppitsch_chewbbacca
+        tar -xzf .tests/integration/data/Ruppitsch_chewbbacca.tar.gz -C .tests/integration/data/Ruppitsch_chewbbacca --strip-components 1
+    
     - name: Integration testing
       uses: snakemake/snakemake-github-action@v1.24.0
       with:
@@ -43,4 +48,4 @@ jobs:
         snakefile: 'workflow/Snakefile'
         args: "--cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml"
         stagein: |
-            conda config --set channel_priority strict
+          conda config --set channel_priority strict
