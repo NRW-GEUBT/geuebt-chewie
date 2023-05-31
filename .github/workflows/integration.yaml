@@ -25,9 +25,9 @@ jobs:
       run: |
         pytest .tests/unit
     
-    - name: Cancelling parallel jobs
-      if: failure()
-      uses: andymckay/cancel-action@0.3
+    # - name: Cancelling parallel jobs
+      # if: ${{ failure() }}
+      # uses: andymckay/cancel-action@0.3
 
   Integration_testing:
     runs-on: ubuntu-latest
@@ -49,3 +49,12 @@ jobs:
         args: "--cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml"
         stagein: |
           conda config --set channel_priority strict
+
+    - name: Archive logs on fail
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: foodme-fail-otu
+        path: .tests/integration/logs/
+        if-no-files-found: error
+        retention-days: 3
