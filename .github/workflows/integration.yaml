@@ -44,7 +44,7 @@ jobs:
         mkdir -p .tests/integration/data/Ruppitsch_chewbbacca
         tar -xzf .tests/integration/data/Ruppitsch_chewbbacca.tar.gz -C .tests/integration/data/Ruppitsch_chewbbacca --strip-components 1
     
-    - name: Create environment with mamba
+    - name: Setup mamba
       uses: conda-incubator/setup-miniconda@v2
       with:
         mamba-version: "*"
@@ -55,7 +55,7 @@ jobs:
     
     - name: Integration testing
       run: |
-        conda create -y --name snakemake snakemake
+        mamba install -c conda-forge -c bioconda snakemake=7.26.0
         snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml
       # uses: snakemake/snakemake-github-action@v1.24.0
       # with:
