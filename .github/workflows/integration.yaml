@@ -10,6 +10,9 @@ on:
 jobs:
   Unit_testing:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
     
     - name: Checkout repository
@@ -41,13 +44,18 @@ jobs:
         mkdir -p .tests/integration/data/Ruppitsch_chewbbacca
         tar -xzf .tests/integration/data/Ruppitsch_chewbbacca.tar.gz -C .tests/integration/data/Ruppitsch_chewbbacca --strip-components 1
     
-    - name: Setup env
-      run: |
-        $CONDA/bin/conda install mamba snakemake -n base -c conda-forge -c bioconda
-        $CONDA/bin/conda config --set channel_priority strict
-
+    - name: Create environment with mamba
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        mamba-version: "*"
+        channels: conda-forge,bioconda,defaults
+        use-only-tar-bz2: true
+        auto-activate-base: true
+        auto-update-conda: true
+    
     - name: Integration testing
       run: |
+        conda create -y --name snakemake snakemake
         snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml
       # uses: snakemake/snakemake-github-action@v1.24.0
       # with:
