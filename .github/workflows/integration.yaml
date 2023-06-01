@@ -44,8 +44,11 @@ jobs:
     - name: Setup env
       run: |
         $CONDA/bin/conda install mamba snakemake -n base -c conda-forge -c bioconda
-        
-    # - name: Integration testing
+        $CONDA/bin/conda config --set channel_priority strict
+
+    - name: Integration testing
+      run: |
+        snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml
       # uses: snakemake/snakemake-github-action@v1.24.0
       # with:
         # directory: '.tests/integration'
