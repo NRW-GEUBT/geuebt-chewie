@@ -46,13 +46,5 @@ diff --unified --recursive --no-dereference chewieSnake-orig/chewieSnake_join.sm
  
  rule all_reportonly:
      input:
-diff --unified --recursive --no-dereference chewieSnake-orig/envs/grapetree3.yaml chewieSnake/envs/grapetree3.yaml
---- chewieSnake-orig/chewieSnake_join.smk	2023-05-30 10:12:16.451155752 +0200
-+++ chewieSnake/chewieSnake_join.smk	2023-05-30 10:14:52.000000000 +0200
-@@ -25,7 +25,7 @@
-   - wheel=0.35.1
-   - xz=5.2.5
-   - zlib=1.2.11
-+  - gcc=12.2.0
 
 END
