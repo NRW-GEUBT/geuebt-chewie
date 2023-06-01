@@ -36,9 +36,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       
-    # - name: Install dependencies
-      # run: |
-        # sudo apt-get install gcc python3-dev
+    - name: Install dependencies
+      run: |
+        sudo apt-get install gcc python3-dev
     
     - name: Unpack test data
       run: |
