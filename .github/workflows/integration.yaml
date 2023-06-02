@@ -55,7 +55,7 @@ jobs:
       run: |
         mamba install 'snakemake>=6.3.0' -n snkmk
         mamba env export
-        snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml
+        /usr/share/miniconda3/envs/snkmk/bin/snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml
 
       # uses: snakemake/snakemake-github-action@v1.24.0
       # with:
