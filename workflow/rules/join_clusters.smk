@@ -54,7 +54,6 @@ rule chewie_join_main:
         distance_method=config["distance_method"],
         species_shortname=config["species_shortname"],
         conda_prefix={workflow.conda_prefix},
-        chewie_logs="logs/chewie_join_main/",
     message:
         "[Join clusters] Joining samples to precomputed subclusters with ChewieSnake-join"
     threads:
@@ -79,8 +78,7 @@ rule chewie_join_main:
             --species_shortname {params.species_shortname} \
             --use_conda \
             --condaprefix {params.conda_prefix} \
-            --threads {threads} \
-            --logdir {params.chewie_logs}
+            --threads {threads}
         """
 
 
@@ -101,7 +99,6 @@ rule chewie_join_sub:
         distance_method=config["distance_method"],
         species_shortname=config["species_shortname"],
         conda_prefix={workflow.conda_prefix},
-        chewie_logs="logs/chewie_join_sub/",
     message:
         "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
     threads:
@@ -126,8 +123,7 @@ rule chewie_join_sub:
             --species_shortname {params.species_shortname} \
             --use_conda \
             --condaprefix {params.conda_prefix} \
-            --threads {threads} \
-            --logdir {params.chewie_logs}
+            --threads {threads}
         """
 
 # rule stage_clusters:

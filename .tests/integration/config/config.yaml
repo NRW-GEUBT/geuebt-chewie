@@ -23,7 +23,7 @@ max_threads_per_job: 1
 # Databases
 # ---------
 chewie_path: "~/.nrw-geuebt/chewieSnake"
-cgmlst_scheme: "data/Ruppitsch_chewbbacca"
+cgmlst_scheme: "data/Ruppitsch_chewbbacca/cgmlst"
 prodigal: "~/.nrw-geuebt/chewieSnake/chewBBACA/CHEWBBACA/prodigal_training_files/Listeria_monocytogenes.trn"
 
 # Additional parameters
