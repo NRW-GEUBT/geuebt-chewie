@@ -51,17 +51,12 @@ jobs:
         python-version: 3.9
         channels: conda-forge,bioconda,defaults
         use-only-tar-bz2: true
-        auto-activate-base: true
+        activate-environment: test
         auto-update-conda: true
     
     - name: Integration testing
       run: |
-        conda config --add channels defaults
-        conda config --add channels bioconda
-        conda config --add channels conda-forge
-        conda config --set channel_priority strict
-        mamba create -c conda-forge -c bioconda -n snakemake-test -y snakemake=7.25
-        conda activate snakemake
+        mamba install -y snakemake=7.25
         snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml
       # uses: snakemake/snakemake-github-action@v1.24.0
       # with:
