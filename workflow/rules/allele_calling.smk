@@ -18,6 +18,7 @@ checkpoint chewie_call:
         distance_method=config["distance_method"],
         clustering_method=config["clustering_method"],
         conda_prefix={workflow.conda_prefix},
+        chewie_logs="logs/chewie_call/",
     message:
         "[Allele calling] Calling alleles using ChewieSnake"
     threads:
@@ -42,7 +43,8 @@ checkpoint chewie_call:
             --use_conda \
             --condaprefix {params.conda_prefix} \
             --threads {threads} \
-            --threads_sample {params.max_threads_per_job}
+            --threads_sample {params.max_threads_per_job} \
+            --logdir {params.chewie_logs}
         """
 
 
