@@ -51,7 +51,6 @@ jobs:
         python-version: 3.9
         channels: conda-forge,bioconda,defaults
         use-only-tar-bz2: true
-        activate-environment: test
         auto-update-conda: true
     
     - name: Integration testing
