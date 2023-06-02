@@ -55,7 +55,8 @@ jobs:
     
     - name: Integration testing
       run: |
-        mamba install -y 'snakemake>=6.3.0'
+        mamba create -n test -y 'snakemake>=6.3.0'
+        conda activate test
         snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml
       # uses: snakemake/snakemake-github-action@v1.24.0
       # with:
