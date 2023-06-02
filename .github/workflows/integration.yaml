@@ -49,11 +49,12 @@ jobs:
       with:
         miniforge-variant: Mambaforge
         channels: conda-forge,bioconda
+        activate-environment: snkmk
     
     - name: Integration testing
       run: |
-        mamba install 'snakemake>=6.3.0' -n test
-        conda activate test
+        mamba install 'snakemake>=6.3.0' -n snkmk
+        mamba env export
         snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml
 
       # uses: snakemake/snakemake-github-action@v1.24.0
