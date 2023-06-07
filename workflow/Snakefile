@@ -28,9 +28,11 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "allele_calling/cgmlst/allele_profiles.tsv",
-        "allele_calling/cgmlst/allele_statistics.tsv",
-        "allele_calling/cgmlst/timestamps.tsv",
+        "staging/qc_status.json",
+        aggregate_qc_pass,
+        # "allele_calling/cgmlst/allele_profiles.tsv",
+        # "allele_calling/cgmlst/allele_statistics.tsv",
+        # "allele_calling/cgmlst/timestamps.tsv",
         "join_clusters/main/merged_db/sample_cluster_information.tsv",
         "join_clusters/main/merged_db/orphan_samples.tsv",
         "join_clusters/sub/merged_db/sample_cluster_information.tsv",

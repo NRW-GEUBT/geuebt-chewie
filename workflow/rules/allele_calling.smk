@@ -5,6 +5,7 @@
 checkpoint chewie_call:
     output:
         outdir=directory("allele_calling"),
+        jsons=directory("allele_calling/cgmlst/json"),
         profiles="allele_calling/cgmlst/allele_profiles.tsv",
         statistics="allele_calling/cgmlst/allele_statistics.tsv",
         timestamps="allele_calling/cgmlst/timestamps.tsv",
@@ -20,12 +21,11 @@ checkpoint chewie_call:
         conda_prefix={workflow.conda_prefix},
     message:
         "[Allele calling] Calling alleles using ChewieSnake"
-    threads:
-        workflow.cores
+    threads: workflow.cores
     conda:
         "../envs/chewie.yaml"
     log:
-        "logs/chewie_call.log"
+        "logs/chewie_call.log",
     shell:
         """
         exec 2> {log}
@@ -46,6 +46,33 @@ checkpoint chewie_call:
         """
 
 
-# rule qc_status:
+rule qc_status:
+    input:
+        jsons=aggregate_json_call,
+    output:
+        qc_status="staging/qc_status.json",
+    params:
+        max_missing_loci=config["max_missing_loci"],
+    message:
+        "[Allele calling] Checking allele profiles quality"
+    conda:
+        "../envs/pandas.yaml"
+    log:
+        "logs/qc_status.log",
+    script:
+        "../scripts/qc_status.py"
 
-# rule stage_profiles:
+
+checkpoint stage_profiles:
+    input:
+        jsons=aggregate_json_call,
+    output:
+        isolate_sheet_dir=directory("staging/isolate_sheets"),
+    message:
+        "[Allele calling] Writting isolate sheets"
+    conda:
+        "../envs/pandas.yaml"
+    log:
+        "logs/stage_profiles.log",
+    script:
+        "../scripts/stage_profiles.py"

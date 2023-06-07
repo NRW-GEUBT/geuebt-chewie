@@ -18,9 +18,23 @@ def get_local_time():
 
 
 # Input functions ------------------------------------
-def aggregate_samples(wildcards):
-    checkpoint_output = checkpoints.checkpoint_name.get(**wildcards).output[0]
+def aggregate_json_call(wildcards):
+    "Aggregate JSON outputs of chewie_call"
+    checkpoint_output = checkpoints.chewie_call.get(**wildcards).output['jsons']
     ids_map = glob_wildcards(
-        os.path.join(checkpoint_output, "{wildcard_name}.fa")
-    ).wildcard_name
-    return expand("file/path/pattern/{wildcard_name}.ext", wildcard_name=ids_map)
+        os.path.join(checkpoint_output, "{sample}.chewiesnake.json")
+    ).sample
+    return expand(
+        "allele_calling/cgmlst/json/{sample}.chewiesnake.json", 
+        sample=ids_map
+    )
+
+
+def aggregate_qc_pass(wildcards):
+    "Aggregte sample sheets of samples passing QC"
+    checkpoint_output = checkpoints.stage_profiles.get(**wildcards).output['isolate_sheet_dir']
+    ids_map = glob_wildcards(
+        os.path.join(checkpoint_output, "{qc_pass}.json")
+    ).qc_pass
+    return expand(
+        "staging/isolate_sheets/{qc_pass}.json", qc_pass=ids_map)

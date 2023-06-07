@@ -18,7 +18,7 @@ rule make_join_list:
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/make_join_list.log"
+        "logs/make_join_list.log",
     shell:
         """
         exec 2> {log}
@@ -56,12 +56,11 @@ rule chewie_join_main:
         conda_prefix={workflow.conda_prefix},
     message:
         "[Join clusters] Joining samples to precomputed subclusters with ChewieSnake-join"
-    threads:
-        workflow.cores
+    threads: workflow.cores
     conda:
         "../envs/chewie.yaml"
     log:
-        "logs/chewie_join_main.log"
+        "logs/chewie_join_main.log",
     shell:
         """
         exec 2> {log}
@@ -101,12 +100,11 @@ rule chewie_join_sub:
         conda_prefix={workflow.conda_prefix},
     message:
         "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
-    threads:
-        workflow.cores
+    threads: workflow.cores
     conda:
         "../envs/chewie.yaml"
     log:
-        "logs/chewie_join_sub.log"
+        "logs/chewie_join_sub.log",
     shell:
         """
         exec 2> {log}
