@@ -124,7 +124,8 @@ rule chewie_join_sub:
             --threads {threads}
         """
 
+
 # rule stage_clusters:
-    # Need to sort between existing and new clusters, rename etc..
-    # Add couple of orphans to check
-    # Need testing on subclusters
+# Need to sort between existing and new clusters, rename etc..
+# Add couple of orphans to check
+# Need testing on subclusters

@@ -66,6 +66,7 @@ rule qc_status:
 checkpoint stage_profiles:
     input:
         jsons=aggregate_json_call,
+        qc="staging/qc_status.json",
     output:
         isolate_sheet_dir=directory("staging/isolate_sheets"),
     message:

@@ -12,7 +12,7 @@ except NameError:
     pass
 
 
-import json 
+import json
 
 
 def main(jsons, max_missing_loci, json_path):
@@ -20,7 +20,7 @@ def main(jsons, max_missing_loci, json_path):
     for js in jsons:
         # Parse json
         with open(js, 'r') as fi:
-            js_dict=json.load(fi)
+            js_dict = json.load(fi)
         sample = js_dict["run_metadata"]["sample_description"]["sample"]
         missing = js_dict["allele_stats"]["loci_missing_fraction"]
         # Check fraction missing
