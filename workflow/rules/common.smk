@@ -34,6 +34,5 @@ def aggregate_qc_pass(wildcards):
     checkpoint_output = checkpoints.stage_profiles.get(**wildcards).output[
         "isolate_sheet_dir"
     ]
-    ids_map = glob_wildcards(
-        os.path.join(checkpoint_output, "{qc_pass}.json")).qc_pass
+    ids_map = glob_wildcards(os.path.join(checkpoint_output, "{qc_pass}.json")).qc_pass
     return expand("staging/isolate_sheets/{qc_pass}.json", qc_pass=ids_map)

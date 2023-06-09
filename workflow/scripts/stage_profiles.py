@@ -32,7 +32,7 @@ def main(jsons, qc, outdir):
             jsdict = json.load(fi)
         sample = jsdict['run_metadata']['sample_description']['sample']
         # Make isolate sheet only if passing QC
-        if qc_status['sample']['STATUS'] != 'PASS':
+        if qc_status[sample]['STATUS'] != 'PASS':
             continue
         # Reformat JSON
         dictout['qc_metrics'] = {
@@ -45,7 +45,7 @@ def main(jsons, qc, outdir):
             }
         }
         # Dump in isolate sheet
-        with open(os.path.join(outdir, sample), 'w') as fi:
+        with open(os.path.join(outdir, f"{sample}.json"), 'w') as fi:
             json.dump(dictout, fi, indent=4)
 
 

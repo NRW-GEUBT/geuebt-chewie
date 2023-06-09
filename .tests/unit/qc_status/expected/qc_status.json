@@ -1,0 +1,14 @@
+{
+    "16-LI00296-0": {
+        "STATUS": "PASS",
+        "MESSAGES": [
+            ""
+        ]
+    },
+    "16-LI00501-0": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Too many missing core genome loci. Fraction missing is 0.12, maximum allowed is 0.05."
+        ]
+    }
+}
