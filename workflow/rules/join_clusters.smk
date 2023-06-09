@@ -1,11 +1,42 @@
 # Join new samples to existing clusters
 
 
+rule filter_samples:
+    input:
+        sample_list="common/sample_list.txt",
+        profiles="allele_calling/cgmlst/allele_profiles.tsv",
+        statistics="allele_calling/cgmlst/allele_statistics.tsv",
+        timestamps="allele_calling/cgmlst/timestamps.tsv",
+    output:
+        new_profiles="common/allele_profiles.tsv",
+        new_statistics="common/allele_statistics.tsv",
+        new_timestamps="common/timestamps.tsv",
+    message:
+        "[Join clusters] Collecting samples passing QC"
+    conda:
+        "../envs/pandas.yaml"
+    log:
+        "logs/filter_samples.log",
+    shell:
+        """
+        exec 2> {log}
+        # Profiles
+        head -n1 {input.profiles} > {output.new_profiles}
+        grep -w -f {input.sample_list} {input.profiles} >> {output.new_profiles}
+        # stats
+        head -n1 {input.statistics} > {output.new_statistics}
+        grep -w -f {input.sample_list} {input.statistics} >> {output.new_statistics}
+        # timestamps
+        head -n1 {input.timestamps} > {output.new_timestamps}
+        grep -w -f {input.sample_list} {input.timestamps} >> {output.new_timestamps}
+        """
+
+
 rule make_join_list:
     input:
-        new_profiles="allele_calling/cgmlst/allele_profiles.tsv",
-        new_statistics="allele_calling/cgmlst/allele_statistics.tsv",
-        new_timestamps="allele_calling/cgmlst/timestamps.tsv",
+        new_profiles="common/allele_profiles.tsv",
+        new_statistics="common/allele_statistics.tsv",
+        new_timestamps="common/timestamps.tsv",
     output:
         serovars="dummy/serovar_info.tsv",
         samples="common/sample_list.tsv",
@@ -34,7 +65,7 @@ rule make_join_list:
         echo "external\t$ext_profiles\t$ext_statistics\t$ext_timestamps" >> {output.samples}
         echo "new\t$new_profiles\t$new_statistics\t$new_timestamps" >> {output.samples}
         echo "sample\tcluster_name" > {output.serovars}
-       """
+        """
 
 
 # First join at main cluters level
@@ -126,6 +157,6 @@ rule chewie_join_sub:
 
 
 # rule stage_clusters:
+
 # Need to sort between existing and new clusters, rename etc..
-# Add couple of orphans to check
-# Need testing on subclusters
+

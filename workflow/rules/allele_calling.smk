@@ -51,6 +51,7 @@ rule qc_status:
         jsons=aggregate_json_call,
     output:
         qc_status="staging/qc_status.json",
+        sample_list="common/sample_list.txt",
     params:
         max_missing_loci=config["max_missing_loci"],
     message:

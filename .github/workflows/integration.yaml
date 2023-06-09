@@ -28,9 +28,9 @@ jobs:
       run: |
         pytest .tests/unit
     
-    # - name: Cancelling parallel jobs
-      # if: ${{ failure() }}
-      # uses: andymckay/cancel-action@0.3
+    - name: Cancelling parallel jobs
+      if: ${{ failure() }}
+      uses: andymckay/cancel-action@0.3
 
   Integration_testing:
     runs-on: ubuntu-latest

@@ -15,8 +15,9 @@ except NameError:
 import json
 
 
-def main(jsons, max_missing_loci, json_path):
+def main(jsons, max_missing_loci, json_path, list_path):
     dictout = {}
+    sample_list = []
     for js in jsons:
         # Parse json
         with open(js, 'r') as fi:
@@ -27,6 +28,7 @@ def main(jsons, max_missing_loci, json_path):
         if missing <= max_missing_loci:
             status = "PASS"
             mssg = ['']
+            sample_list.append(sample)
         else:
             status = "FAIL"
             mssg = [
@@ -42,6 +44,9 @@ def main(jsons, max_missing_loci, json_path):
     # Dump json
     with open(json_path, 'w') as fp:
         json.dump(dictout, fp, indent=4)
+    # Dump list
+    with open(list_path, 'w') as fi:
+        fi.write("\n".join(sample_list))
 
 
 if __name__ == '__main__':
@@ -49,4 +54,5 @@ if __name__ == '__main__':
         snakemake.input['jsons'],
         snakemake.params['max_missing_loci'],
         snakemake.output['qc_status'],
+        snakemake.output['sample_list'],
     )

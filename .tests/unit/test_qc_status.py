@@ -21,23 +21,34 @@ def test_qc_status():
         # Copy data to the temporary workdir.
         shutil.copytree(data_path, workdir)
         shutil.copy(script_path, workdir)
-        
+
         # run function
         sys.path.insert(0, workdir)
-        from qc_status import main # import main from your script
+        from qc_status import main
+        # import main from your script
         main(
             jsons=[
                 os.path.join(workdir, '16-LI00296-0.chewiesnake.json'),
-                os.path.join(workdir, '16-LI00501-0.chewiesnake.json')
+                os.path.join(workdir, '16-LI00501-0.chewiesnake.json'),
+                os.path.join(workdir, '16-LI00919-0.chewiesnake.json')
             ],
             max_missing_loci=0.05,
             json_path=os.path.join(workdir, 'result.json'),
+            list_path=os.path.join(workdir, 'listout.txt'),
         )
 
         # Insert your tests here
+        # check dicts
         with open(
             os.path.join(workdir, 'result.json'), 'r'
         ) as res, open(
             os.path.join(expected_path, 'qc_status.json'), 'r'
         ) as expect:
             assert load(res) == load(expect)
+        # check list
+        with open(
+            os.path.join(workdir, 'listout.txt'), 'r'
+        ) as res, open(
+            os.path.join(expected_path, 'sample_list.txt'), 'r'
+        ) as expect:
+            assert res.readlines() == expect.readlines()
