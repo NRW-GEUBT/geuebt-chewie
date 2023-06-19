@@ -21,10 +21,10 @@ def test_stage_profiles():
         # Copy data to the temporary workdir.
         shutil.copytree(data_path, workdir)
         shutil.copy(script_path, workdir)
-        
+
         # run function
         sys.path.insert(0, workdir)
-        from stage_profiles import main # import main from your script
+        from stage_profiles import main
         main(
             jsons=[
                 os.path.join(workdir, '16-LI00296-0.chewiesnake.json'),

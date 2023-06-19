@@ -9,8 +9,10 @@
 workdir: .tests/integration
 # Path to sample sheet
 sample_sheet: "config/samples.tsv"
-# Path to files with cluster representatives 
+# Path to files with cluster representatives with 2 columns sample and cluster_name
+# For main clusters: only main cluster name with prefix ("LIS-1")
 external_main_clusters: "data/clusters_ext.tsv"
+# For subcluster the full subcluster name with prefix ("LIS-1.1")
 external_sub_clusters: "data/subclusters_ext.tsv"
 # Profiles etc.. info from external samples
 external_profiles: "data/profiles_ext.tsv"
@@ -38,5 +40,5 @@ clustering_method: "single"
 cluster_distance: 10
 # A list of distance thresholds for subclustering
 subcluster_distance: 5
-# Abbreviated Species name for cluster names
-species_shortname: "LIS"
+# Prefix for cluster naming
+cluster_prefix: "LIS"

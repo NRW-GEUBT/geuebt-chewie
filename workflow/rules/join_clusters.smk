@@ -83,7 +83,7 @@ rule chewie_join_main:
         distance_threshold=config["cluster_distance"],
         external_main_clusters=config["external_main_clusters"],
         distance_method=config["distance_method"],
-        species_shortname=config["species_shortname"],
+        species_shortname=config["cluster_prefix"],
         conda_prefix={workflow.conda_prefix},
     message:
         "[Join clusters] Joining samples to precomputed subclusters with ChewieSnake-join"
@@ -127,7 +127,7 @@ rule chewie_join_sub:
         distance_threshold=config["subcluster_distance"],
         external_sub_clusters=config["external_sub_clusters"],
         distance_method=config["distance_method"],
-        species_shortname=config["species_shortname"],
+        species_shortname=config["cluster_prefix"],
         conda_prefix={workflow.conda_prefix},
     message:
         "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
@@ -156,7 +156,22 @@ rule chewie_join_sub:
         """
 
 
-# rule stage_clusters:
-
-# Need to sort between existing and new clusters, rename etc..
-
+checkpoint stage_clusters:
+    input:
+        clusters_main="join_clusters/main/merged_db/sample_cluster_information.tsv",
+        orphans_main="join_clusters/main/merged_db/orphan_samples.tsv",
+        clusters_sub="join_clusters/sub/merged_db/sample_cluster_information.tsv",
+    output:
+        dirout=directory("staging/clusters/"),
+    params:
+        prefix=config["cluster_prefix"],
+        main_threshold=config["cluster_distance"],
+        sub_threshold=config["subcluster_distance"],
+    message:
+        "[Join clusters] Consolidating and staging clusters"
+    conda:
+        "../envs/pandas.yaml"
+    log:
+        "logs/stage_clusters.log",
+    script:
+        "../scripts/stage_clusters.py"

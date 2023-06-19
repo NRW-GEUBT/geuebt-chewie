@@ -30,9 +30,16 @@ def aggregate_json_call(wildcards):
 
 
 def aggregate_qc_pass(wildcards):
-    "Aggregte sample sheets of samples passing QC"
+    "Aggregate sample sheets of samples passing QC"
     checkpoint_output = checkpoints.stage_profiles.get(**wildcards).output[
         "isolate_sheet_dir"
     ]
     ids_map = glob_wildcards(os.path.join(checkpoint_output, "{qc_pass}.json")).qc_pass
     return expand("staging/isolate_sheets/{qc_pass}.json", qc_pass=ids_map)
+
+
+def aggregate_cluster_sheets(wildcards):
+    "Aggregate clsuter info JSONs"
+    checkpoint_output = checkpoints.stage_clusters.get(**wildcards).output["dirout"]
+    ids_map = glob_wildcards(os.path.join(checkpoint_output, "{cluster}.json")).cluster
+    return expand("staging/clusters/{cluster}.json", cluster=ids_map)

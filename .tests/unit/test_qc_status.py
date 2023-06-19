@@ -25,7 +25,6 @@ def test_qc_status():
         # run function
         sys.path.insert(0, workdir)
         from qc_status import main
-        # import main from your script
         main(
             jsons=[
                 os.path.join(workdir, '16-LI00296-0.chewiesnake.json'),
