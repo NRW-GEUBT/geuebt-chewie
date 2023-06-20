@@ -32,11 +32,11 @@ def _assign_subcluster_names(x, mapping):
     if pd.isna(x['external_cluster_name']):
         return mapping[x['cluster_name']]
     else:
-         return x['external_cluster_name']
+        return x['external_cluster_name']
 
 
 def _get_subclusters_list(merged_df, prefix, dist):
-    l = []
+    listout = []
     for clsname in merged_df['sub_name'].dropna().unique():
         current = merged_df.loc[merged_df["sub_name"] == clsname].reset_index()
         d = {
@@ -47,8 +47,8 @@ def _get_subclusters_list(merged_df, prefix, dist):
             "AD_threshold": dist,
             "members": current['sample'].to_list()
         }
-        l.append(d)
-    return(l)
+        listout.append(d)
+    return listout
 
 
 def map_names(cluster_df):
@@ -70,7 +70,7 @@ def map_names(cluster_df):
     cluster_name_list = list(new_clusters_df['cluster_name'].unique())
     name_map = {
         clust: cluster_name_list.index(clust) + 1 + max_used
-            for clust in cluster_name_list
+        for clust in cluster_name_list
     }
     return name_map
 
@@ -92,7 +92,7 @@ def main(
     clusters = pd.read_csv(cluster_info, index_col=False, sep="\t")
     subclusters = pd.read_csv(subcluster_info, index_col=False, sep="\t")
     orphs = pd.read_csv(orphans, index_col=False, sep="\t")
-    
+
     # Parse cluster names and reformat
     clusters["external_cluster_name"] = clusters.apply(
         _get_cluster_numbers,
@@ -112,7 +112,7 @@ def main(
     for cluster_tmpname in clusters['cluster_name'].unique():
         cluster_df = clusters.loc[clusters['cluster_name'] == cluster_tmpname].reset_index()
         # if no new samples, no need to to anything
-        if not "new" in cluster_df["Sender"].to_list():
+        if "new" not in cluster_df["Sender"].to_list():
             continue
         # Assign cluster name if empty
         if cluster_df["external_cluster_name"].isna().all():
@@ -163,7 +163,7 @@ def main(
         # Dump JSONs
         with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
             json.dump(d, fp, indent=4)
-    
+
     # If there are oprhans, also make an orphan JSON
     if orphs.empty:
         members = []
