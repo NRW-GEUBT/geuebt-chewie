@@ -124,29 +124,36 @@ def main(
             "external_cluster_name": "main_name",
             "representative_sample": "main_repr"
         })
+
         # Select samples in subclusters based on current cluster
-        subcluster_df = subclusters.loc[subclusters['sample'].isin(cluster_df['sample'])]
+        subcluster_df = subclusters.loc[subclusters['sample'].isin(cluster_df['sample'])].reset_index()
         # Assign new names to subclusters
-        sub_map = map_names(subcluster_df)
-        subcluster_df["external_cluster_name"] = subcluster_df.apply(
-            _assign_subcluster_names,
-            axis=1,
-            mapping=sub_map
-        )
-        subcluster_short = subcluster_df[
-            ["sample", "representative_sample", "external_cluster_name"]
-        ]
-        subcluster_short = subcluster_short.rename(columns={
-            "external_cluster_name": "sub_name",
-            "representative_sample": "sub_repr"
-        })
-        # Join mains with sublcusters - orphans get NA
-        merged = pd.merge(
-            cluster_short,
-            subcluster_short,
-            how='left',
-            on="sample"
-        )
+        # If there are no subclusters, then all samples are root level in cluster
+        if subcluster_df.empty:
+            merged = cluster_short
+            merged["sub_name"] = pd.NA
+            merged["sub_repr"] = pd.NA
+        else:
+            sub_map = map_names(subcluster_df)
+            subcluster_df["external_cluster_name"] = subcluster_df.apply(
+                _assign_subcluster_names,
+                axis=1,
+                mapping=sub_map
+            )
+            subcluster_short = subcluster_df[
+                ["sample", "representative_sample", "external_cluster_name"]
+            ]
+            subcluster_short = subcluster_short.rename(columns={
+                "external_cluster_name": "sub_name",
+                "representative_sample": "sub_repr"
+            })
+            # Join mains with sublcusters - orphans get NA
+            merged = pd.merge(
+                cluster_short,
+                subcluster_short,
+                how='left',
+                on="sample"
+            )
 
         # Format as dict for JSON, or skip if nothing new
         if merged.empty:
