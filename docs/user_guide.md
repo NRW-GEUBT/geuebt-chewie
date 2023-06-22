@@ -38,9 +38,9 @@ Most software and databases dependencies will be installed during the first run.
 
 ### cgMLST schemes
 
-cgMLST schemes need to be provided by the user. 
-A good place to start for these is [pubMLST](https://pubmlst.org/). 
-In general it is recommended to look for schemes that are globally make a 
+cgMLST schemes need to be provided by the user.
+A good place to start for these is [pubMLST](https://pubmlst.org/).
+In general it is recommended to look for schemes that are globally make a
 consensus for the species of interest.
 
 Importantly, the scheme must be formatted to be used by [CHEWBBACCA](https://github.com/B-UMMI/chewBBACA).
@@ -175,7 +175,7 @@ The follow the same structure, here for a single entry:
 
 ### Cluster datasheets
 
-Cluster information are summarized in a JSON file per cluster. 
+Cluster information are summarized in a JSON file per cluster.
 Note that JSONs are generated only for clusters with new samples.
 
 ```json
