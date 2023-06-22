@@ -41,7 +41,7 @@ and the full name in the subcluster file (LIS-125.32).
 
 Truncated example:
 
-```
+```plaintext
 #FILE	lmo0001.fasta	lmo0002.fasta	lmo0003.fasta	lmo0005.fasta
 DB-LI00339-0	3453202319	138852938	2562060452	1874597132	2322454825
 DB-LI00345-0	3453202319	138852938	874063884	1874597132	2322454825
