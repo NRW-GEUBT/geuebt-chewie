@@ -1,7 +1,7 @@
+# Geübt Chewie
 
-# A Snakekemake repository template
+Allele calling and cgMLST clustering module of the Geübt application.
 
 ## Usage
 
-Copy the content of the repository to an empty directory and link your upstream
-repository. Add, commit, and push to origin.
+The documentation for this workflow is hosted on our [homepage](https://nrw-geubt.github.io/geuebt-validate/).
