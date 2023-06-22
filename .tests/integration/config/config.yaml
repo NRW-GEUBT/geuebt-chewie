@@ -1,0 +1,44 @@
+# Configuration file template
+# Modify the values below as deemed nescessary
+# See the documentation for more informations
+# ------------------------------------------------------------------------------
+
+# Input and Output paths
+# ----------------------
+# Path to the output directory, will be created if it doesn´t exist
+workdir: .tests/integration
+# Path to sample sheet
+sample_sheet: "config/samples.tsv"
+# Path to files with cluster representatives with 2 columns sample and cluster_name
+# For main clusters: only main cluster name with prefix ("LIS-1")
+external_main_clusters: "data/clusters_ext.tsv"
+# For subcluster the full subcluster name with prefix ("LIS-1.1")
+external_sub_clusters: "data/subclusters_ext.tsv"
+# Profiles etc.. info from external samples
+external_profiles: "data/profiles_ext.tsv"
+external_timestamps: "data/timestamps_ext.tsv"
+external_statistics: "data/statistics_ext.tsv"
+
+# Max number of threads assigned to single jobs
+max_threads_per_job: 1
+
+# Databases
+# ---------
+chewie_path: "~/.nrw-geuebt/chewieSnake"
+cgmlst_scheme: "data/Ruppitsch_chewbbacca/cgmlst"
+prodigal: "~/.nrw-geuebt/chewieSnake/chewBBACA/CHEWBBACA/prodigal_training_files/Listeria_monocytogenes.trn"
+
+# Additional parameters
+# ---------------------
+# maximum fraction of missing loci
+max_missing_loci: 0.05
+# Grapetree distance method
+distance_method: 3
+# The agglomeration method to be used for hierarchical clustering
+clustering_method: "single"
+# A single distance threshold for the exctraction of sub-trees
+cluster_distance: 10
+# A list of distance thresholds for subclustering
+subcluster_distance: 5
+# Prefix for cluster naming
+cluster_prefix: "LIS"

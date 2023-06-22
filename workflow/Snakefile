@@ -28,13 +28,20 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "",
+        "staging/qc_status.json",
+        aggregate_qc_pass,
+        "join_clusters/main/merged_db/sample_cluster_information.tsv",
+        "join_clusters/main/merged_db/orphan_samples.tsv",
+        "join_clusters/sub/merged_db/sample_cluster_information.tsv",
+        "join_clusters/sub/merged_db/orphan_samples.tsv",
+        aggregate_cluster_sheets,
 
 
 # Includes --------------------------------------------------------------------
 
 
-include: ""
+include: "rules/allele_calling.smk"
+include: "rules/join_clusters.smk"
 
 
 # Workflow --------------------------------------------------------------------
@@ -42,7 +49,7 @@ include: ""
 
 
 onstart:
-    print(f"\nYou are using <REPO NAME> version: {version}")
+    print(f"\nYou are using GEUEBT-CHEWIE version: {version}")
     with open(pipe_log, "a") as f:
         f.write(f"[{get_local_time()}]: Pipeline started\n")
 
@@ -66,7 +73,7 @@ onerror:
     print(
         f"\nAn error occured, please consider filing an bug report."
         f"\n"
-        f"\nIssue tracker: <ISSUE LINK>"
+        f"\nIssue tracker: https://github.com/NRW-GEUBT/geuebt-chewie/issues"
     )
     with open(pipe_log, "a") as f:
         f.write(f"[{get_local_time()}]: Pipeline stopped on error\n")

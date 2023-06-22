@@ -3,11 +3,43 @@
 # See the documentation for more informations
 # ------------------------------------------------------------------------------
 
-# Workflow control
-# ----------------
-
+# Input and Output paths
+# ----------------------
 # Path to the output directory, will be created if it doesn´t exist
-workdir: /path/to/workdir
+workdir: /path/to/output/dir
+# Path to sample sheet
+sample_sheet: /path/to/sample_sheet
+# Path to files with cluster representatives with 2 columns sample and cluster_name
+# For main clusters: only main cluster name with prefix ("LIS-1")
+external_main_clusters: /path/to/external/clusters
+# For subcluster the full subcluster name with prefix ("LIS-1.1")
+external_sub_clusters: /path/to/external/subclusters
+# Profiles etc.. info from external samples
+external_profiles: /path/to/external/profiles
+external_timestamps: /path/to/external/timestamps
+external_statistics: /path/to/external/statistics
+
+# Max number of threads assigned to single jobs
+max_threads_per_job: 1
+
+# Databases
+# ---------
+chewie_path: "~/.nrw-geuebt/chewieSnake"
+cgmlst_scheme: "data/Ruppitsch_chewbbacca/cgmlst"
+# Use the prodigal file for your species!
+prodigal: "~/.nrw-geuebt/chewieSnake/chewBBACA/CHEWBBACA/prodigal_training_files/<SPECIES_OF_INTEREST>.trn"
 
 # Additional parameters
 # ---------------------
+# maximum fraction of missing loci
+max_missing_loci: 0.05
+# Grapetree distance method
+distance_method: 3
+# The agglomeration method to be used for hierarchical clustering
+clustering_method: "single"
+# A single distance threshold for the exctraction of sub-trees
+cluster_distance: 10
+# A list of distance thresholds for subclustering
+subcluster_distance: 5
+# Prefix for cluster naming
+cluster_prefix: "CT"

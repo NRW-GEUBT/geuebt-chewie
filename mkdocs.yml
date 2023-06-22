@@ -1,13 +1,16 @@
-site_name: NAME
-site_url: URL
-site_description: DESC
-site_author: AUTHOR
+site_name: geubt-chewie
+site_url: https://nrw-geubt.github.io/geuebt-chewie/
+site_description: Allele calling and cgMLST clustering module of NRW-Geübt
+site_author: Gregoire Denay
 copyright: BSD 3-Clause license
 
-repo_url: URL
+repo_url: https://github.com/NRW-GEUBT/geuebt-chewie
 
 nav:
   - Welcome: index.md
+  - Guide for users: user_guide.md
+  - Guide for developers: dev_guide.md
+  - Contributing : contributing.md
   - About: 
       - License: about/license.md
       - Release notes: about/changelog.md
@@ -33,7 +36,7 @@ plugins:
 extra:
   analytics:
     provider: google
-    property: XXXXXX
+    property: 
     feedback:
       title: Was this page helpful?
       ratings:
@@ -47,7 +50,7 @@ extra:
           data: 0
           note: >-
             Thanks for your feedback! Help us improve this page by 
-            <a href="https://github.com/<URL>/issues/new/?title=[Webdoc Feedback]+{title}+-+{url}" target="_blank" rel="noopener">telling us what you need</a>.
+            <a href="https://github.com/NRW-GEUBT/geuebt-chewie/issues/new/?title=[Webdoc Feedback]+{title}+-+{url}" target="_blank" rel="noopener">telling us what you need</a>.
   consent:
     title: Cookie consent
     description: >-
@@ -75,12 +78,15 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 
+extra_css:
+  - stylesheets/extra.css
+
 extra_javascript:
   - javascripts/mathjax.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 copyright: >
-  Copyright &copy; YEAR NAMES -
+  Copyright &copy; 2023 Grégoire Denay -
   <a href="#__consent">Change cookie settings</a>
 

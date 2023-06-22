@@ -14,7 +14,7 @@ start.
 Go to 'Issues' in the repository's menu and use the search bar to look for your
 issue/question, maybe the discussion already exists! if you don't find what
 you are looking for, use the green button
-['New Issue'](https://github.com/REPO)
+['New Issue'](https://github.com/NRW-GEUBT/geuebt-chewie/issues/new)
 and select the correct template (Question, Bug report or New feature).
 
 ### Bug reports
