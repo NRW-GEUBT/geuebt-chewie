@@ -225,6 +225,7 @@ This one is always generated, even if no new oprhans were found.
     "cluster_id": "LIS-orphans",
     "cluster_number": 0,
     "size": 15,
+    "AD_threshold": 10,
     "members": [
         "16-LI00944-0",
         "16-LI00963-0",
