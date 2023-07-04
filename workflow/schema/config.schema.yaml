@@ -6,7 +6,87 @@ properties:
   
   workdir:
     type: string
-    description: Output directory
+    description: Path to the ouptut directory
+  
+  sample_sheet:
+    type: string
+    description: Path to the sample sheet in TSV format
+  
+  external_main_clusters:
+    type: string
+    description: Path to the main cluster naming file
+  
+  external_sub_clusters:
+    type: string
+    description: Path to the subcluster naming file
+  
+  external_profiles:
+    type: string
+    description: Path to the external allele profiles file
+  
+  external_timestamps:
+    type: string
+    description: Path to the external timestamps file
+  
+  external_statistics:
+    type: string
+    description: Path to the external allele statistics file
+  
+  max_threads_per_job:
+    type: integer
+    description: Max number of threads assigned to a single job
+  
+  chewie_path:
+    type: string
+    description: Path to the ChewieSnake pipeline folder
+  
+  cgmlst_scheme:
+    type: string
+    description: Path to the cgMLST scheme
+  
+  prodigal:
+    type: string
+    description: Path to prodigal training file for the given species
+  
+  max_missing_loci:
+    type: number
+    description: Maximumj fraction of loci missing for sample acceptance
+  
+  distance_method:
+    type: integer
+    description: Distance calculation method for grapetree
+  
+  clustering_method:
+    type: string
+    description: The agglomeration method to be used for hierarchical clustering.
+  
+  cluster_distance:
+    type: integer
+    description: Maximum distance for samples to be attached to a cluster
+  
+  subcluster_distance:
+    type: integer
+    description: Maximum distance for samples to be attached to a subcluster
+  
+  cluster_prefix:
+    type: string
+    description: Prefix for cluster names
   
   required:
     - workdir
+    - sample_sheet
+    - external_main_clusters
+    - external_sub_clusters
+    - external_profiles
+    - external_timestamps
+    - external_statistics
+    - max_threads_per_job
+    - chewie_path
+    - cgmlst_scheme
+    - prodigal
+    - max_missing_loci
+    - distance_method
+    - clustering_method
+    - cluster_distance
+    - subcluster_distance
+    - cluster_prefix

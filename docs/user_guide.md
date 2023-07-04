@@ -106,6 +106,19 @@ The assemblies must be provided as fasta file.
 Wrapped and unwrapped fastas as well as multifastas are allowed.
 There are no special requirements for sequence headers.
 
+## Cluster naming
+
+Cluster naming convention must be according to the following structure:
+
+<PREFIX>-<MAIN#>.<SUB#>
+
+whereby PREFIX is a string identifier for differenciating clusters from e.g. different
+species or different sources. This is fixed by the params `cluster_prefix`, make sure you use
+the same PREFIX in the external database and while running chewie to avoid colllisions.
+
+MAIN# and SUB# are integer identifying specific clusters and subclusters repectively. They will be
+simply incremented for new clusters.
+
 ## Results
 
 Results to be used for the next steps are located in the `staging` folder in the workdir.
