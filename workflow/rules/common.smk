@@ -43,4 +43,3 @@ def aggregate_cluster_sheets(wildcards):
     checkpoint_output = checkpoints.stage_clusters.get(**wildcards).output["dirout"]
     ids_map = glob_wildcards(os.path.join(checkpoint_output, "{cluster}.json")).cluster
     return expand("staging/clusters/{cluster}.json", cluster=ids_map)
- 

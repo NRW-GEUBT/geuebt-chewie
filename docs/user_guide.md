@@ -113,10 +113,10 @@ Cluster naming convention must be according to the following structure:
 <PREFIX>-<MAIN#>.<SUB#>
 
 whereby PREFIX is a string identifier for differenciating clusters from e.g. different
-species or different sources. This is fixed by the params `cluster_prefix`, make sure you use 
+species or different sources. This is fixed by the params `cluster_prefix`, make sure you use
 the same PREFIX in the external database and while running chewie to avoid colllisions.
 
-MAIN# and SUB# are integer identifying specific clusters and subclusters repectively. They will be 
+MAIN# and SUB# are integer identifying specific clusters and subclusters repectively. They will be
 simply incremented for new clusters.
 
 ## Results
