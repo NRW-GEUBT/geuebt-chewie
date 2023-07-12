@@ -82,7 +82,8 @@ def main(
     prefix,
     main_dist,
     sub_dist,
-    dirout
+    dirout,
+    mergedout
 ):
     # Make output dir
     if not os.path.isdir(dirout):
@@ -104,6 +105,8 @@ def main(
         axis=1,
         sep="."
     )
+
+    merged_json = []
 
     # Main cluster name assignment
     main_map = map_names(clusters)
@@ -171,6 +174,8 @@ def main(
         with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
             json.dump(d, fp, indent=4)
 
+        merged_json.append(d)
+
     # If there are oprhans, also make an orphan JSON
     if orphs.empty:
         members = []
@@ -185,6 +190,11 @@ def main(
     }
     with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
         json.dump(d, fp, indent=4)
+    
+    merged_json.append(d)
+
+    with open(mergedout, 'w') as fp:
+        json.dump(merged_json, fp, indent=4)
 
 
 if __name__ == '__main__':
@@ -195,5 +205,6 @@ if __name__ == '__main__':
         prefix=snakemake.params['prefix'],
         main_dist=snakemake.params['main_threshold'],
         sub_dist=snakemake.params['sub_threshold'],
-        dirout=snakemake.output['dirout']
+        dirout=snakemake.output['dirout'],
+        mergedout=snakemake.output['merged']
     )

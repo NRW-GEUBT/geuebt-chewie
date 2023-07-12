@@ -158,6 +158,7 @@ The follow the same structure, here for a single entry:
 
 ```json
 {
+    "isolate_id": "16-LI00296-0",
     "qc_metrics": {
         "cgmlst_missing_fraction": 0.0035481963335304554
     },

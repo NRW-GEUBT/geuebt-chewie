@@ -32,6 +32,7 @@ def test_stage_profiles():
             ],
             qc=os.path.join(workdir, 'qc_status.json'),
             outdir=os.path.join(workdir),
+            mergedout=os.path.join(workdir, 'result.json')
         )
 
         # Insert your tests here
@@ -43,5 +44,12 @@ def test_stage_profiles():
             os.path.join(workdir, '16-LI00296-0.json'), 'r'
         ) as res, open(
             os.path.join(expected_path, 'isolate_sheet.json'), 'r'
+        ) as expect:
+            assert load(res) == load(expect)
+
+        with open(
+            os.path.join(workdir, 'result.json'), 'r'
+        ) as res, open(
+            os.path.join(expected_path, 'merged.json'), 'r'
         ) as expect:
             assert load(res) == load(expect)
