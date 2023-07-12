@@ -1,0 +1,184 @@
+[
+    {
+        "cluster_id": "LIS-2",
+        "cluster_number": 2,
+        "size": 4,
+        "representative": "test_db3",
+        "AD_threshold": 10,
+        "root_members": [],
+        "subclusters": [
+            {
+                "subcluster_id": "LIS-2.1",
+                "subcluster_number": 1,
+                "size": 2,
+                "representative": "test_db3",
+                "AD_threshold": 5,
+                "members": [
+                    "test_db3",
+                    "test_new1"
+                ]
+            },
+            {
+                "subcluster_id": "LIS-2.2",
+                "subcluster_number": 2,
+                "size": 2,
+                "representative": "test_new2",
+                "AD_threshold": 5,
+                "members": [
+                    "test_new2",
+                    "test_new3"
+                ]
+            }
+        ]
+    },
+    {
+        "cluster_id": "LIS-3",
+        "cluster_number": 3,
+        "size": 5,
+        "representative": "test_db8",
+        "AD_threshold": 10,
+        "root_members": [],
+        "subclusters": [
+            {
+                "subcluster_id": "LIS-3.1",
+                "subcluster_number": 1,
+                "size": 3,
+                "representative": "test_db8",
+                "AD_threshold": 5,
+                "members": [
+                    "test_db8",
+                    "test_new5",
+                    "test_new6"
+                ]
+            },
+            {
+                "subcluster_id": "LIS-3.2",
+                "subcluster_number": 2,
+                "size": 2,
+                "representative": "test_new7",
+                "AD_threshold": 5,
+                "members": [
+                    "test_new7",
+                    "test_new8"
+                ]
+            }
+        ]
+    },
+    {
+        "cluster_id": "LIS-4",
+        "cluster_number": 4,
+        "size": 4,
+        "representative": "test_db4",
+        "AD_threshold": 10,
+        "root_members": [],
+        "subclusters": [
+            {
+                "subcluster_id": "LIS-4.1",
+                "subcluster_number": 1,
+                "size": 2,
+                "representative": "test_db4",
+                "AD_threshold": 5,
+                "members": [
+                    "test_db4",
+                    "test_db9"
+                ]
+            },
+            {
+                "subcluster_id": "LIS-4.2",
+                "subcluster_number": 2,
+                "size": 2,
+                "representative": "test_new9",
+                "AD_threshold": 5,
+                "members": [
+                    "test_new9",
+                    "test_new10"
+                ]
+            }
+        ]
+    },
+    {
+        "cluster_id": "LIS-5",
+        "cluster_number": 5,
+        "size": 2,
+        "representative": "test_db5",
+        "AD_threshold": 10,
+        "root_members": [
+            "test_new13"
+        ],
+        "subclusters": [
+            {
+                "subcluster_id": "LIS-5.1",
+                "subcluster_number": 1,
+                "size": 1,
+                "representative": "test_db5",
+                "AD_threshold": 5,
+                "members": [
+                    "test_db5"
+                ]
+            }
+        ]
+    },
+    {
+        "cluster_id": "LIS-6",
+        "cluster_number": 6,
+        "size": 2,
+        "representative": "test_db7",
+        "AD_threshold": 10,
+        "root_members": [
+            "test_db7",
+            "test_new15"
+        ],
+        "subclusters": []
+    },
+    {
+        "cluster_id": "LIS-7",
+        "cluster_number": 7,
+        "size": 2,
+        "representative": "test_new11",
+        "AD_threshold": 10,
+        "root_members": [],
+        "subclusters": [
+            {
+                "subcluster_id": "LIS-7.1",
+                "subcluster_number": 1,
+                "size": 2,
+                "representative": "test_new11",
+                "AD_threshold": 5,
+                "members": [
+                    "test_new11",
+                    "test_new12"
+                ]
+            }
+        ]
+    },
+    {
+        "cluster_id": "LIS-8",
+        "cluster_number": 8,
+        "size": 2,
+        "representative": "test_db6",
+        "AD_threshold": 10,
+        "root_members": [],
+        "subclusters": [
+            {
+                "subcluster_id": "LIS-8.1",
+                "subcluster_number": 1,
+                "size": 2,
+                "representative": "test_db6",
+                "AD_threshold": 5,
+                "members": [
+                    "test_db6",
+                    "test_new14"
+                ]
+            }
+        ]
+    },
+    {
+        "cluster_id": "LIS-orphans",
+        "cluster_number": 0,
+        "size": 1,
+        "AD_threshold": 10,
+        "members": [
+            "test_new16"
+        ]
+    }
+]

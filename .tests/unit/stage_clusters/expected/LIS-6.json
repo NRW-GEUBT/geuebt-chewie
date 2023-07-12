@@ -1,0 +1,12 @@
+{
+    "cluster_id": "LIS-6",
+    "cluster_number": 6,
+    "size": 2,
+    "representative": "test_db7",
+    "AD_threshold": 10,
+    "root_members": [
+        "test_db7",
+        "test_new15"
+    ],
+    "subclusters": []
+}
