@@ -56,7 +56,7 @@ jobs:
         mamba install 'snakemake>=6.3.0' -n snkmk
         mamba env export
         /usr/share/miniconda3/envs/snkmk/bin/snakemake -s workflow/Snakefile --cores 1 --use-conda --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml --keep-incomplete
-
+    
     - name: Archive logs on fail
       if: ${{ failure() }}
       uses: actions/upload-artifact@v2

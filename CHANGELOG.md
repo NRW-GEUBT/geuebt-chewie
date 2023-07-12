@@ -1,3 +1,7 @@
+### 0.1.3
+
+No produces merged JSONs of isolate sheets (`staging/isolate_sheets.json`) and clusters (`staging/clusters.json`) to make wildcards handling a bit easier in the core module
+
 ### 0.1.2
 
 Config checks

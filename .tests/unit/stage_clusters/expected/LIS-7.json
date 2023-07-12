@@ -1,0 +1,21 @@
+{
+    "cluster_id": "LIS-7",
+    "cluster_number": 7,
+    "size": 2,
+    "representative": "test_new11",
+    "AD_threshold": 10,
+    "root_members": [],
+    "subclusters": [
+        {
+            "subcluster_id": "LIS-7.1",
+            "subcluster_number": 1,
+            "size": 2,
+            "representative": "test_new11",
+            "AD_threshold": 5,
+            "members": [
+                "test_new11",
+                "test_new12"
+            ]
+        }
+    ]
+}

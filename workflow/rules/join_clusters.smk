@@ -163,6 +163,7 @@ checkpoint stage_clusters:
         clusters_sub="join_clusters/sub/merged_db/sample_cluster_information.tsv",
     output:
         dirout=directory("staging/clusters/"),
+        merged="staging/clusters.json",
     params:
         prefix=config["cluster_prefix"],
         main_threshold=config["cluster_distance"],

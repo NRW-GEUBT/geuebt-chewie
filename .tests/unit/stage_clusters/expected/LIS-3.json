@@ -1,0 +1,33 @@
+{
+    "cluster_id": "LIS-3",
+    "cluster_number": 3,
+    "size": 5,
+    "representative": "test_db8",
+    "AD_threshold": 10,
+    "root_members": [],
+    "subclusters": [
+        {
+            "subcluster_id": "LIS-3.1",
+            "subcluster_number": 1,
+            "size": 3,
+            "representative": "test_db8",
+            "AD_threshold": 5,
+            "members": [
+                "test_db8",
+                "test_new5",
+                "test_new6"
+            ]
+        },
+        {
+            "subcluster_id": "LIS-3.2",
+            "subcluster_number": 2,
+            "size": 2,
+            "representative": "test_new7",
+            "AD_threshold": 5,
+            "members": [
+                "test_new7",
+                "test_new8"
+            ]
+        }
+    ]
+}

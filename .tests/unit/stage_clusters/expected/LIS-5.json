@@ -1,0 +1,22 @@
+{
+    "cluster_id": "LIS-5",
+    "cluster_number": 5,
+    "size": 2,
+    "representative": "test_db5",
+    "AD_threshold": 10,
+    "root_members": [
+        "test_new13"
+    ],
+    "subclusters": [
+        {
+            "subcluster_id": "LIS-5.1",
+            "subcluster_number": 1,
+            "size": 1,
+            "representative": "test_db5",
+            "AD_threshold": 5,
+            "members": [
+                "test_db5"
+            ]
+        }
+    ]
+}
