@@ -190,7 +190,7 @@ def main(
     }
     with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
         json.dump(d, fp, indent=4)
-    
+
     merged_json.append(d)
 
     with open(mergedout, 'w') as fp:

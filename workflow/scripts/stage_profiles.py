@@ -25,7 +25,7 @@ def main(jsons, qc, outdir, mergedout):
     with open(qc, 'r') as fi:
         qc_status = json.load(fi)
 
-    merged=[]
+    merged = []
 
     for js in jsons:
         dictout = {}
@@ -56,7 +56,6 @@ def main(jsons, qc, outdir, mergedout):
 
     with open(mergedout, 'w') as fi:
         json.dump(merged, fi, indent=4)
-
 
 
 if __name__ == '__main__':
