@@ -70,7 +70,7 @@ checkpoint stage_profiles:
         qc="staging/qc_status.json",
     output:
         isolate_sheet_dir=directory("staging/isolate_sheets"),
-        merged="staging/isolate_sheets,json",
+        merged="staging/isolate_sheets.json",
     message:
         "[Allele calling] Writting isolate sheets"
     conda:
