@@ -1,3 +1,7 @@
+### 0.1.6
+
+rename members field in orphan cluster sheet to root_member
+
 ### 0.1.5
 
 Added organism to cluster sheet
