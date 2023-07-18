@@ -85,6 +85,7 @@ Following parameters are optional and will revert to defaults if not set:
 | `cluster_distance` | int | 10 | Maximum distance for samples to be attached to a cluster |
 | `subcluster_distance` | int | 5 | Maximum distance for samples to be attached to a subcluster |
 | `cluster_prefix` | string | "CT" | Prefix for cluster names |
+| `organism` | string | "Genus species" | Organism name for identification |
 
 ## Usage
 

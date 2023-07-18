@@ -42,3 +42,4 @@ cluster_distance: 10
 subcluster_distance: 5
 # Prefix for cluster naming
 cluster_prefix: "LIS"
+organism: "Listeria monocytogenes"
