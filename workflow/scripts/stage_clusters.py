@@ -189,7 +189,7 @@ def main(
         "organism": organism,
         "size": len(members),
         "AD_threshold": main_dist,
-        "members": members
+        "root_members": members
     }
     with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
         json.dump(d, fp, indent=4)

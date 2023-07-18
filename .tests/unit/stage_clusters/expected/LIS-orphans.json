@@ -4,7 +4,7 @@
     "organism": "Listeria monocytogenes",
     "size": 1,
     "AD_threshold": 10,
-    "members": [
+    "root_members": [
         "test_new16"
     ]
 }
