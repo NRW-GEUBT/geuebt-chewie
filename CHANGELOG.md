@@ -1,3 +1,7 @@
+### 0.1.7 
+
+bugfix
+
 ### 0.1.6
 
 rename members field in orphan cluster sheet to root_member

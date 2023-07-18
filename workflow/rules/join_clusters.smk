@@ -169,6 +169,7 @@ checkpoint stage_clusters:
         prefix=config["cluster_prefix"],
         main_threshold=config["cluster_distance"],
         sub_threshold=config["subcluster_distance"],
+        organism=config['organism'],
     message:
         "[Join clusters] Consolidating and staging clusters"
     conda:
