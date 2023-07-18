@@ -87,6 +87,8 @@ For this activate a conda enviroment with a recent version of snakemake (see the
 documentation) and run the following test:
 
 ```bash
+mkdir -p .tests/integration/data/Listeria_cgmlst_Ruppitsch_chewbbaca
+tar -xzf .tests/integration/data/Ruppitsch_chewbbacca.tar.gz -C .tests/integration/data/Listeria_cgmlst_Ruppitsch_chewbbaca --strip-components 1
 snakemake --cores 1 --use-conda --configfile .tests/integration/config/config.yaml
 ```
 
