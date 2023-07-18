@@ -2,6 +2,7 @@
     {
         "cluster_id": "LIS-2",
         "cluster_number": 2,
+        "organism": "Listeria monocytogenes",
         "size": 4,
         "representative": "test_db3",
         "AD_threshold": 10,
@@ -34,6 +35,7 @@
     {
         "cluster_id": "LIS-3",
         "cluster_number": 3,
+        "organism": "Listeria monocytogenes",
         "size": 5,
         "representative": "test_db8",
         "AD_threshold": 10,
@@ -67,6 +69,7 @@
     {
         "cluster_id": "LIS-4",
         "cluster_number": 4,
+        "organism": "Listeria monocytogenes",
         "size": 4,
         "representative": "test_db4",
         "AD_threshold": 10,
@@ -99,6 +102,7 @@
     {
         "cluster_id": "LIS-5",
         "cluster_number": 5,
+        "organism": "Listeria monocytogenes",
         "size": 2,
         "representative": "test_db5",
         "AD_threshold": 10,
@@ -121,6 +125,7 @@
     {
         "cluster_id": "LIS-6",
         "cluster_number": 6,
+        "organism": "Listeria monocytogenes",
         "size": 2,
         "representative": "test_db7",
         "AD_threshold": 10,
@@ -133,6 +138,7 @@
     {
         "cluster_id": "LIS-7",
         "cluster_number": 7,
+        "organism": "Listeria monocytogenes",
         "size": 2,
         "representative": "test_new11",
         "AD_threshold": 10,
@@ -154,6 +160,7 @@
     {
         "cluster_id": "LIS-8",
         "cluster_number": 8,
+        "organism": "Listeria monocytogenes",
         "size": 2,
         "representative": "test_db6",
         "AD_threshold": 10,
@@ -175,6 +182,7 @@
     {
         "cluster_id": "LIS-orphans",
         "cluster_number": 0,
+        "organism": "Listeria monocytogenes",
         "size": 1,
         "AD_threshold": 10,
         "members": [

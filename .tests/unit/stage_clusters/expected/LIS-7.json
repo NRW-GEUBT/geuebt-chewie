@@ -1,6 +1,7 @@
 {
     "cluster_id": "LIS-7",
     "cluster_number": 7,
+    "organism": "Listeria monocytogenes",
     "size": 2,
     "representative": "test_new11",
     "AD_threshold": 10,

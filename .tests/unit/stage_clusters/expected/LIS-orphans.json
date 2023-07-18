@@ -1,6 +1,7 @@
 {
     "cluster_id": "LIS-orphans",
     "cluster_number": 0,
+    "organism": "Listeria monocytogenes",
     "size": 1,
     "AD_threshold": 10,
     "members": [

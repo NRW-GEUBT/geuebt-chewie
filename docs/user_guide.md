@@ -196,6 +196,7 @@ Note that JSONs are generated only for clusters with new samples.
 {
     "cluster_id": "LIS-1",
     "cluster_number": 1,
+    "organism": "Listeria monocytogenes",
     "size": 7,
     "representative": "DB-LI00339-0",
     "AD_threshold": 10,
@@ -238,6 +239,7 @@ This one is always generated, even if no new oprhans were found.
 {
     "cluster_id": "LIS-orphans",
     "cluster_number": 0,
+    "organism": "Listeria monocytogenes",
     "size": 15,
     "AD_threshold": 10,
     "members": [
