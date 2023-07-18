@@ -33,7 +33,7 @@ rule filter_samples:
 
 
 rule failsafe_chewie_join_input:
-    # If the database is not populated, then the input files will be empty 
+    # If the database is not populated, then the input files will be empty
     # and chewie join will fail because of missing header
     # Check files and create a correctly formatted empty table if nescessary
     input:
@@ -50,7 +50,7 @@ rule failsafe_chewie_join_input:
         ext_profiles=config["external_profiles"],
         ext_timestamps=config["external_timestamps"],
         ext_statistics=config["external_statistics"],
-    message: 
+    message:
         "[Join clusters] Ensuring valid input"
     conda:
         "../envs/pandas.yaml"
@@ -66,7 +66,7 @@ rule make_join_list:
         new_statistics="qcfilter/allele_statistics.tsv",
         new_timestamps="qcfilter/timestamps.tsv",
         ext_profiles="failsafe/profiles.tsv",
-        ext_timestamps=="failsafe/timestamps.tsv",
+        ext_timestamps="failsafe/timestamps.tsv",
         ext_statistics="failsafe/statistics.tsv",
     output:
         serovars="dummy/serovar_info.tsv",
