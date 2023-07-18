@@ -32,6 +32,7 @@ def test_stage_clusters():
             prefix="LIS",
             main_dist=10,
             sub_dist=5,
+            organism="Listeria monocytogenes",
             dirout=os.path.join(workdir),
             mergedout=os.path.join(workdir, 'result.json')
         )
@@ -54,7 +55,6 @@ def test_stage_clusters():
             assert not os.path.isfile(os.path.join(workdir, unexpected_file))
         # ensure dict correctness
         for expected_file in expected_files:
-            print(expected_file)
             with open(
                 os.path.join(workdir, expected_file), 'r'
             ) as res, open(

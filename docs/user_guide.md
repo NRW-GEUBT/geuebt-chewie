@@ -85,6 +85,7 @@ Following parameters are optional and will revert to defaults if not set:
 | `cluster_distance` | int | 10 | Maximum distance for samples to be attached to a cluster |
 | `subcluster_distance` | int | 5 | Maximum distance for samples to be attached to a subcluster |
 | `cluster_prefix` | string | "CT" | Prefix for cluster names |
+| `organism` | string | "Genus species" | Organism name for identification |
 
 ## Usage
 
@@ -196,6 +197,7 @@ Note that JSONs are generated only for clusters with new samples.
 {
     "cluster_id": "LIS-1",
     "cluster_number": 1,
+    "organism": "Listeria monocytogenes",
     "size": 7,
     "representative": "DB-LI00339-0",
     "AD_threshold": 10,
@@ -238,6 +240,7 @@ This one is always generated, even if no new oprhans were found.
 {
     "cluster_id": "LIS-orphans",
     "cluster_number": 0,
+    "organism": "Listeria monocytogenes",
     "size": 15,
     "AD_threshold": 10,
     "members": [

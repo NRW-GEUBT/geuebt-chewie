@@ -82,6 +82,7 @@ def main(
     prefix,
     main_dist,
     sub_dist,
+    organism,
     dirout,
     mergedout
 ):
@@ -164,6 +165,7 @@ def main(
         d = {
             "cluster_id": f"{prefix}-{merged.at[0, 'main_name']}",
             "cluster_number": int(merged.at[0, 'main_name']),
+            "organism": organism,
             "size": len(merged['sample'].to_list()),
             "representative": merged.at[0, 'main_repr'],
             "AD_threshold": main_dist,
@@ -184,6 +186,7 @@ def main(
     d = {
         "cluster_id": f"{prefix}-orphans",
         "cluster_number": 0,
+        "organism": organism,
         "size": len(members),
         "AD_threshold": main_dist,
         "members": members
@@ -205,6 +208,7 @@ if __name__ == '__main__':
         prefix=snakemake.params['prefix'],
         main_dist=snakemake.params['main_threshold'],
         sub_dist=snakemake.params['sub_threshold'],
+        organism=snakemake.params['organism'],
         dirout=snakemake.output['dirout'],
         mergedout=snakemake.output['merged']
     )
