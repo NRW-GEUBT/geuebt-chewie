@@ -99,7 +99,7 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/stable/exe
 
 ## Input formats
 
-See the input formatting specifications in the `config`folder.
+See the input formatting specifications in the `config` folder.
 
 ### Sequence files
 
@@ -111,7 +111,7 @@ There are no special requirements for sequence headers.
 
 Cluster naming convention must be according to the following structure:
 
-<PREFIX>-<MAIN#>.<SUB#>
+`<PREFIX>-<MAIN#>.<SUB#>`
 
 whereby PREFIX is a string identifier for differenciating clusters from e.g. different
 species or different sources. This is fixed by the params `cluster_prefix`, make sure you use

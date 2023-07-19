@@ -1,4 +1,8 @@
-### 0.1.7 
+### 0.1.8
+
+Handles empty external input files (cluster samples, timestamps etc...) by writting a new file with correct header
+
+### 0.1.7
 
 bugfix
 

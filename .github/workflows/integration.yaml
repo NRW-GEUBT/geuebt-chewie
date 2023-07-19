@@ -41,8 +41,8 @@ jobs:
     
     - name: Unpack test data
       run: |
-        mkdir -p .tests/integration/data/Ruppitsch_chewbbacca
-        tar -xzf .tests/integration/data/Ruppitsch_chewbbacca.tar.gz -C .tests/integration/data/Ruppitsch_chewbbacca --strip-components 1
+        mkdir -p .tests/integration/data/Listeria_cgmlst_Ruppitsch_chewbbaca
+        tar -xzf .tests/integration/data/Ruppitsch_chewbbacca.tar.gz -C .tests/integration/data/Listeria_cgmlst_Ruppitsch_chewbbaca --strip-components 1
     
     - name: Setup mamba
       uses: conda-incubator/setup-miniconda@v2

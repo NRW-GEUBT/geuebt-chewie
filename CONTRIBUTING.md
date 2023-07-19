@@ -51,7 +51,7 @@ All changes in the repository are made through pull requests.
 
 ### Github worflow
 
-To submitt a pull request:
+To submit a pull request:
 
 - Fork the repository and create your branch from `main`
 - Make your changes to the code base/documentation/tests
@@ -87,6 +87,13 @@ For this activate a conda enviroment with a recent version of snakemake (see the
 documentation) and run the following test:
 
 ```bash
+# Extract the cgMLST scheme
+mkdir -p .tests/integration/data/Listeria_cgmlst_Ruppitsch_chewbbaca
+tar -xzf .tests/integration/data/Ruppitsch_chewbbacca.tar.gz -C .tests/integration/data/Listeria_cgmlst_Ruppitsch_chewbbaca --strip-components 1
+```
+
+```bash
+# run snakemake
 snakemake --cores 1 --use-conda --configfile .tests/integration/config/config.yaml
 ```
 
