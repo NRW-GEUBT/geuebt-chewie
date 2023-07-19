@@ -32,6 +32,8 @@ LIS-125.32, meaning Listeria cluster number 125, subcluster 32.
 In the main cluster file, only provide the names trucncated to the cluster number (LIS-125),
 and the full name in the subcluster file (LIS-125.32).
 
+Both the main cluster and subcluster naming files should contain only a single representative sample per (sub)cluster.
+
 ### External profiles
 
 | Field name             | Value                               |
