@@ -3,9 +3,7 @@ import sys
 
 from tempfile import TemporaryDirectory
 import shutil
-import filecmp
 from pathlib import Path, PurePosixPath
-from json import load, dumps
 
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -55,4 +53,3 @@ def test_failsafe_chewie_join_input():
                 os.path.join(expected_path, filename), 'r'
             ) as expect:
                 assert res.readlines() == expect.readlines()
-
