@@ -1,3 +1,8 @@
+### 0.2.0
+
+Revert to only accepting correctly formatted input files
+Proper validation of all input files
+
 ### 0.1.8
 
 Handles empty external input files (cluster samples, timestamps etc...) by writting a new file with correct header

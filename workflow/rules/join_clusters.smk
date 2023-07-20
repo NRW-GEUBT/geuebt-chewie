@@ -32,45 +32,18 @@ rule filter_samples:
         """
 
 
-rule failsafe_chewie_join_input:
-    # If the database is not populated, then the input files will be empty
-    # and chewie join will fail because of missing header
-    # Check files and create a correctly formatted empty table if nescessary
-    input:
-        new_profiles="qcfilter/allele_profiles.tsv",
-    output:
-        external_main_clusters="failsafe/main_clusters.tsv",
-        external_sub_clusters="failsafe/sub_clusters.tsv",
-        ext_profiles="failsafe/profiles.tsv",
-        ext_timestamps="failsafe/timestamps.tsv",
-        ext_statistics="failsafe/statistics.tsv",
-    params:
-        external_main_clusters=config["external_main_clusters"],
-        external_sub_clusters=config["external_sub_clusters"],
-        ext_profiles=config["external_profiles"],
-        ext_timestamps=config["external_timestamps"],
-        ext_statistics=config["external_statistics"],
-    message:
-        "[Join clusters] Ensuring valid input"
-    conda:
-        "../envs/pandas.yaml"
-    log:
-        "logs/failsafe_chewie_join_input.log",
-    script:
-        "../scripts/failsafe_chewie_join_input.py"
-
-
 rule make_join_list:
     input:
         new_profiles="qcfilter/allele_profiles.tsv",
         new_statistics="qcfilter/allele_statistics.tsv",
         new_timestamps="qcfilter/timestamps.tsv",
-        ext_profiles="failsafe/profiles.tsv",
-        ext_timestamps="failsafe/timestamps.tsv",
-        ext_statistics="failsafe/statistics.tsv",
     output:
         serovars="dummy/serovar_info.tsv",
-        samples="failsafe/sample_list.tsv",
+        samples="qcfilter/sample_list.tsv",
+    params:
+        ext_profiles=config["external_profiles"],
+        ext_timestamps=config["external_timestamps"],
+        ext_statistics=config["external_statistics"],
     message:
         "[Join clusters] Collecting external clusters information"
     conda:
@@ -81,9 +54,9 @@ rule make_join_list:
         """
         exec 2> {log}
         # Make realpaths
-        ext_profiles=$(realpath {input.ext_profiles})
-        ext_statistics=$(realpath {input.ext_statistics})
-        ext_timestamps=$(realpath {input.ext_timestamps})
+        ext_profiles=$(realpath {params.ext_profiles})
+        ext_statistics=$(realpath {params.ext_statistics})
+        ext_timestamps=$(realpath {params.ext_timestamps})
         new_profiles=$(realpath {input.new_profiles})
         new_statistics=$(realpath {input.new_statistics})
         new_timestamps=$(realpath {input.new_timestamps})
@@ -98,9 +71,8 @@ rule make_join_list:
 # First join at main cluters level
 rule chewie_join_main:
     input:
-        samplelist="failsafe/sample_list.tsv",
+        samplelist="qcfilter/sample_list.tsv",
         serovars="dummy/serovar_info.tsv",
-        external_main_clusters="failsafe/main_clusters.tsv",
     output:
         outdir=directory("join_clusters/main/"),
         sample_cluster="join_clusters/main/merged_db/sample_cluster_information.tsv",
@@ -109,6 +81,7 @@ rule chewie_join_main:
         chewie=os.path.join(config["chewie_path"], "chewieSnake_join.py"),
         clustering_method=config["clustering_method"],
         distance_threshold=config["cluster_distance"],
+        external_main_clusters=config["external_main_clusters"],
         distance_method=config["distance_method"],
         species_shortname=config["cluster_prefix"],
         conda_prefix={workflow.conda_prefix},
@@ -129,7 +102,7 @@ rule chewie_join_main:
             --clustering_method {params.clustering_method} \
             --distance_threshold {params.distance_threshold} \
             --serovar_info {input.serovars} \
-            --external_cluster_names {input.external_main_clusters} \
+            --external_cluster_names {params.external_main_clusters} \
             --cluster \
             --distance_method {params.distance_method} \
             --species_shortname {params.species_shortname} \
@@ -142,9 +115,8 @@ rule chewie_join_main:
 # Then join at subcluster level
 rule chewie_join_sub:
     input:
-        samplelist="failsafe/sample_list.tsv",
+        samplelist="qcfilter/sample_list.tsv",
         serovars="dummy/serovar_info.tsv",
-        external_sub_clusters="failsafe/sub_clusters.tsv",
     output:
         outdir=directory("join_clusters/sub/"),
         sample_cluster="join_clusters/sub/merged_db/sample_cluster_information.tsv",
@@ -153,6 +125,7 @@ rule chewie_join_sub:
         chewie=os.path.join(config["chewie_path"], "chewieSnake_join.py"),
         clustering_method=config["clustering_method"],
         distance_threshold=config["subcluster_distance"],
+        external_sub_clusters=config["external_sub_clusters"],
         distance_method=config["distance_method"],
         species_shortname=config["cluster_prefix"],
         organism=config["organism"],
@@ -174,7 +147,7 @@ rule chewie_join_sub:
             --clustering_method {params.clustering_method} \
             --distance_threshold {params.distance_threshold} \
             --serovar_info {input.serovars} \
-            --external_cluster_names {input.external_sub_clusters} \
+            --external_cluster_names {params.external_sub_clusters} \
             --cluster \
             --distance_method {params.distance_method} \
             --species_shortname {params.species_shortname} \

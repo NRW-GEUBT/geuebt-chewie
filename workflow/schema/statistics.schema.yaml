@@ -1,0 +1,38 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+
+description: Cluster File Schema
+
+properties:
+  sample:
+    type: string
+    description: Representative sample name for given cluster
+  EXC:
+    type: integer
+    description: Same named parameter from CHEWBBACCA results
+  INT:
+    type: integer
+    description: Same named parameter from CHEWBBACCA results
+  LNF:
+    type: integer
+    description: Same named parameter from CHEWBBACCA results
+  PLOT:
+    type: integer
+    description: Same named parameter from CHEWBBACCA results
+  NIPH:
+    type: integer
+    description: Same named parameter from CHEWBBACCA results
+  ALM:
+    type: integer
+    description: Same named parameter from CHEWBBACCA results
+  ASM:
+    type: integer
+    description: Same named parameter from CHEWBBACCA results
+  required:
+    - sample
+    - EXC
+    - INT
+    - LNF
+    - PLOT
+    - NIPH
+    - ALM
+    - ASM
