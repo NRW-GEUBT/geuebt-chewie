@@ -1,0 +1,14 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+
+description: Cluster File Schema
+
+properties:
+  sample:
+    type: string
+    description: Representative sample name for given cluster
+  date:
+    type: string
+    description: Samples's timestamp
+  required:
+    - sample
+    - cluster_name
