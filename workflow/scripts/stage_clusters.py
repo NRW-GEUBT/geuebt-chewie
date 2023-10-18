@@ -1,4 +1,4 @@
-b #!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -133,11 +133,17 @@ def main(
     # Main cluster name assignment
     main_map = map_names(clusters)
 
+    # collect cluster names and repr
+    cluster_tracking = []  # list of tuples (cluster_repr, cluster_name)
     # Iterate over clusters - not as efficient as groupy but more manageable
     for cluster_tmpname in clusters['cluster_name'].unique():
         cluster_df = clusters.loc[clusters['cluster_name'] == cluster_tmpname].reset_index()
-        # if no new samples, no need to to anything
+        # if no new samples, just add repr and cluster name to tracker and skip
         if "new" not in cluster_df["Sender"].to_list():
+            cluster_tracking.append((
+                cluster_df.at[0, "representative_sample_externalcluster"],
+                f"{prefix}-{cluster_df.at[0, 'external_cluster_name']}"
+            ))
             continue
         # Assign cluster name if empty
         if cluster_df["external_cluster_name"].isna().all():
@@ -182,7 +188,7 @@ def main(
 
         # Format as dict for JSON, or skip if nothing new
         if merged.empty:
-            continue
+            raise ValueError("merged array should not be empty")
         distance_json = _filter_matrix(
             *dist, merged['sample'].to_list()
         ).to_json(orient="records")
@@ -197,6 +203,10 @@ def main(
             "subclusters": _get_subclusters_list(merged, prefix, sub_dist),
             "distance_matrix": loads(distance_json)
         }
+        cluster_tracking.append((
+            merged.at[0, 'main_repr'],
+            f"{prefix}-{merged.at[0, 'main_name']}"
+        ))
         # Dump JSONs
         with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
             json.dump(d, fp, indent=4)
@@ -211,16 +221,21 @@ def main(
     else:
         members = orphs["sample"].to_list()
     # getting distance matrix of orphans + representatives of mainclusters
-    
+    representatives = [tpl[0] for tpl in cluster_tracking]
+    distance_global = _filter_matrix(
+        *dist, [*members, *representatives]
+    )
+    mapper = {old: new for old, new in cluster_tracking}
     # converting name of representatives to cluster names
-    
+    distance_json = distance_global.rename(columns=mapper).to_json(orient="records")
     d = {
         "cluster_id": f"{prefix}-orphans",
         "cluster_number": 0,
         "organism": organism,
         "size": len(members),
         "AD_threshold": main_dist,
-        "root_members": members
+        "root_members": members,
+        "distance_matrix": loads(distance_json)
     }
     with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
         json.dump(d, fp, indent=4)

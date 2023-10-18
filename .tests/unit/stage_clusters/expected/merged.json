@@ -189,6 +189,38 @@
         ]
     },
     {
+        "cluster_id": "LIS-7",
+        "cluster_number": 7,
+        "organism": "Listeria monocytogenes",
+        "size": 2,
+        "representative": "test_new11",
+        "AD_threshold": 10,
+        "root_members": [],
+        "subclusters": [
+            {
+                "subcluster_id": "LIS-7.1",
+                "subcluster_number": 1,
+                "size": 2,
+                "representative": "test_new11",
+                "AD_threshold": 5,
+                "members": [
+                    "test_new11",
+                    "test_new12"
+                ]
+            }
+        ],
+        "distance_matrix": [
+            {
+                "test_new11": 0,
+                "test_new12": 1
+            },
+            {
+                "test_new11": 1,
+                "test_new12": 0
+            }
+        ]
+    },
+    {
         "cluster_id": "LIS-5",
         "cluster_number": 5,
         "organism": "Listeria monocytogenes",
@@ -218,61 +250,6 @@
             {
                 "test_db5": 5,
                 "test_new13": 0
-            }
-        ]
-    },
-    {
-        "cluster_id": "LIS-6",
-        "cluster_number": 6,
-        "organism": "Listeria monocytogenes",
-        "size": 2,
-        "representative": "test_db7",
-        "AD_threshold": 10,
-        "root_members": [
-            "test_db7",
-            "test_new15"
-        ],
-        "subclusters": [],
-        "distance_matrix": [
-            {
-                "test_db7": 0,
-                "test_new15": 5
-            },
-            {
-                "test_db7": 5,
-                "test_new15": 0
-            }
-        ]
-    },
-    {
-        "cluster_id": "LIS-7",
-        "cluster_number": 7,
-        "organism": "Listeria monocytogenes",
-        "size": 2,
-        "representative": "test_new11",
-        "AD_threshold": 10,
-        "root_members": [],
-        "subclusters": [
-            {
-                "subcluster_id": "LIS-7.1",
-                "subcluster_number": 1,
-                "size": 2,
-                "representative": "test_new11",
-                "AD_threshold": 5,
-                "members": [
-                    "test_new11",
-                    "test_new12"
-                ]
-            }
-        ],
-        "distance_matrix": [
-            {
-                "test_new11": 0,
-                "test_new12": 1
-            },
-            {
-                "test_new11": 1,
-                "test_new12": 0
             }
         ]
     },
@@ -309,6 +286,29 @@
         ]
     },
     {
+        "cluster_id": "LIS-6",
+        "cluster_number": 6,
+        "organism": "Listeria monocytogenes",
+        "size": 2,
+        "representative": "test_db7",
+        "AD_threshold": 10,
+        "root_members": [
+            "test_db7",
+            "test_new15"
+        ],
+        "subclusters": [],
+        "distance_matrix": [
+            {
+                "test_db7": 0,
+                "test_new15": 5
+            },
+            {
+                "test_db7": 5,
+                "test_new15": 0
+            }
+        ]
+    },
+    {
         "cluster_id": "LIS-orphans",
         "cluster_number": 0,
         "organism": "Listeria monocytogenes",
@@ -316,6 +316,107 @@
         "AD_threshold": 10,
         "root_members": [
             "test_new16"
+        ],
+        "distance_matrix": [
+            {
+                "test_new16": 0,
+                "LIS-1": 20,
+                "LIS-2": 20,
+                "LIS-3": 20,
+                "LIS-4": 20,
+                "LIS-7": 20,
+                "LIS-5": 20,
+                "LIS-8": 20,
+                "LIS-6": 20
+            },
+            {
+                "test_new16": 20,
+                "LIS-1": 0,
+                "LIS-2": 20,
+                "LIS-3": 20,
+                "LIS-4": 20,
+                "LIS-7": 20,
+                "LIS-5": 20,
+                "LIS-8": 20,
+                "LIS-6": 20
+            },
+            {
+                "test_new16": 20,
+                "LIS-1": 20,
+                "LIS-2": 0,
+                "LIS-3": 20,
+                "LIS-4": 20,
+                "LIS-7": 20,
+                "LIS-5": 20,
+                "LIS-8": 20,
+                "LIS-6": 20
+            },
+            {
+                "test_new16": 20,
+                "LIS-1": 20,
+                "LIS-2": 20,
+                "LIS-3": 0,
+                "LIS-4": 20,
+                "LIS-7": 20,
+                "LIS-5": 20,
+                "LIS-8": 20,
+                "LIS-6": 20
+            },
+            {
+                "test_new16": 20,
+                "LIS-1": 20,
+                "LIS-2": 20,
+                "LIS-3": 20,
+                "LIS-4": 0,
+                "LIS-7": 20,
+                "LIS-5": 20,
+                "LIS-8": 20,
+                "LIS-6": 20
+            },
+            {
+                "test_new16": 20,
+                "LIS-1": 20,
+                "LIS-2": 20,
+                "LIS-3": 20,
+                "LIS-4": 20,
+                "LIS-7": 0,
+                "LIS-5": 20,
+                "LIS-8": 20,
+                "LIS-6": 20
+            },
+            {
+                "test_new16": 20,
+                "LIS-1": 20,
+                "LIS-2": 20,
+                "LIS-3": 20,
+                "LIS-4": 20,
+                "LIS-7": 20,
+                "LIS-5": 0,
+                "LIS-8": 20,
+                "LIS-6": 20
+            },
+            {
+                "test_new16": 20,
+                "LIS-1": 20,
+                "LIS-2": 20,
+                "LIS-3": 20,
+                "LIS-4": 20,
+                "LIS-7": 20,
+                "LIS-5": 20,
+                "LIS-8": 0,
+                "LIS-6": 20
+            },
+            {
+                "test_new16": 20,
+                "LIS-1": 20,
+                "LIS-2": 20,
+                "LIS-3": 20,
+                "LIS-4": 20,
+                "LIS-7": 20,
+                "LIS-5": 20,
+                "LIS-8": 20,
+                "LIS-6": 0
+            }
         ]
     }
 ]

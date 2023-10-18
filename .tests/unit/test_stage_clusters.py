@@ -34,7 +34,7 @@ def test_stage_clusters():
             main_dist=10,
             sub_dist=5,
             organism="Listeria monocytogenes",
-            dirout= os.path.join(workdir),
+            dirout=os.path.join(workdir),
             mergedout=os.path.join(workdir, 'result.json')
         )
 
