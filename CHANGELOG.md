@@ -1,40 +1,10 @@
-### 0.2.0
+### 0.3.0
 
-Revert to only accepting correctly formatted input files
-Proper validation of all input files
+Added distance matrices to cluster descriptions:
 
-### 0.1.8
+- distance matrix is now included in the cluster descriptions, albeit only for the main cluster as the infromation would be redundant for sub-clusters. This information is encoded as JSON records in a new field `distance_matrix`.
+- the "orphan cluster" now also includes a distance matrix, including all orphans and clusters. Like this it is possible to retrieve the distance between different clusters and between orphans and clusters. THe distance to clusters uses the distance to the cluster's representative.
 
-Handles empty external input files (cluster samples, timestamps etc...) by writting a new file with correct header
-
-### 0.1.7
-
-bugfix
-
-### 0.1.6
-
-rename members field in orphan cluster sheet to root_member
-
-### 0.1.5
-
-Added organism to cluster sheet
-
-### 0.1.4
-
-Fix file naming for `isolate_sheet.json'
-
-### 0.1.3
-
-No produces merged JSONs of isolate sheets (`staging/isolate_sheets.json`) and clusters (`staging/clusters.json`) to make wildcards handling a bit easier in the core module
-
-### 0.1.2
-
-Config checks
-Fix docs URL
-
-### 0.1.1
-
-The Orphan cluster JSOn file now reports the AD threshold used
 
 ### 0.1.0
 

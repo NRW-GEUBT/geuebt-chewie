@@ -29,6 +29,7 @@ def test_stage_clusters():
             cluster_info=os.path.join(workdir, 'main_cluster_info.tsv'),
             orphans=os.path.join(workdir, 'orphans.tsv'),
             subcluster_info=os.path.join(workdir, 'sub_cluster_info.tsv'),
+            distances=os.path.join(workdir, "distance_matrix.tsv"),
             prefix="LIS",
             main_dist=10,
             sub_dist=5,

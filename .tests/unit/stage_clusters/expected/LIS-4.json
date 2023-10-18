@@ -29,5 +29,31 @@
                 "test_new10"
             ]
         }
+    ],
+    "distance_matrix": [
+        {
+            "test_db4": 0,
+            "test_db9": 1,
+            "test_new9": 5,
+            "test_new10": 5
+        },
+        {
+            "test_db4": 1,
+            "test_db9": 0,
+            "test_new9": 5,
+            "test_new10": 5
+        },
+        {
+            "test_db4": 5,
+            "test_db9": 5,
+            "test_new9": 0,
+            "test_new10": 1
+        },
+        {
+            "test_db4": 5,
+            "test_db9": 5,
+            "test_new9": 1,
+            "test_new10": 0
+        }
     ]
 }
