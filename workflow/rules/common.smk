@@ -14,8 +14,13 @@ def get_local_time():
 
 
 def validate_input_param(path, schema):
-    df = pd.read_csv(path, index_col="sample", sep="\t", engine="python")
-    validate(df, schema=schema)
+    try:
+        df = pd.read_csv(path, index_col="sample", sep="\t", engine="python")
+        validate(df, schema=schema)
+    except FileNotFoundError:
+        path = os.path.join(workflow.basedir, "..", ".tests", "integration", path)
+        df = pd.read_csv(path, index_col="sample", sep="\t", engine="python")
+        validate(df, schema=schema)
 
 
 # Input functions ------------------------------------
