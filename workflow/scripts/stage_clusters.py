@@ -20,7 +20,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
-from json import loads, dumps
+from json import loads
 
 
 def _load_matrix(filepath):
