@@ -24,7 +24,7 @@ from json import loads
 
 
 def _load_matrix(filepath):
-    df = pd.read_csv(filepath, header=None, index_col=0, sep="\t")
+    df = pd.read_csv(filepath, header=None, index_col=0, sep=" ")
     return (df.index.to_list(), df.to_numpy())
 
 
