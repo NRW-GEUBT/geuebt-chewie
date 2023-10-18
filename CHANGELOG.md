@@ -1,3 +1,11 @@
+### 0.3.0
+
+Added distance matrices to cluster descriptions:
+
+- distance matrix is now included in the cluster descriptions, albeit only for the main cluster as the infromation would be redundant for sub-clusters. This information is encoded as JSON records in a new field `distance_matrix`.
+- the "orphan cluster" now also includes a distance matrix, including all orphans and clusters. Like this it is possible to retrieve the distance between different clusters and between orphans and clusters. THe distance to clusters uses the distance to the cluster's representative.
+
+
 ### 0.1.0
 
 Initial release
