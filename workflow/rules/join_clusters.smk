@@ -77,6 +77,7 @@ rule chewie_join_main:
         outdir=directory("join_clusters/main/"),
         sample_cluster="join_clusters/main/merged_db/sample_cluster_information.tsv",
         orphans="join_clusters/main/merged_db/orphan_samples.tsv",
+        distances="join_clusters/main/merged_db/distance_matrix.tsv",
     params:
         chewie=os.path.join(config["chewie_path"], "chewieSnake_join.py"),
         clustering_method=config["clustering_method"],

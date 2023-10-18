@@ -8,6 +8,7 @@ from snakemake.utils import validate
 version = open(os.path.join(workflow.basedir, "..", "VERSION"), "r").read()
 pipe_log = os.path.join(os.getcwd(), "PIPELINE_STATUS")
 
+
 # General puprose functions --------------------------
 def get_local_time():
     return time.asctime(time.localtime(time.time()))
@@ -53,9 +54,7 @@ def aggregate_cluster_sheets(wildcards):
 
 # Validating config ----------------------------------
 validate(config, schema="../schema/config.schema.yaml")
-validate_input_param(
-    config["sample_sheet"], schema="../schema/samples.schema.yaml"
-)
+validate_input_param(config["sample_sheet"], schema="../schema/samples.schema.yaml")
 validate_input_param(
     config["external_main_clusters"], schema="../schema/clusters.schema.yaml"
 )
