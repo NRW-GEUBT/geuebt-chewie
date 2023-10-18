@@ -162,7 +162,7 @@ checkpoint stage_clusters:
         clusters_main="join_clusters/main/merged_db/sample_cluster_information.tsv",
         orphans_main="join_clusters/main/merged_db/orphan_samples.tsv",
         clusters_sub="join_clusters/sub/merged_db/sample_cluster_information.tsv",
-        distances="join_clusters/sub/merged_db/distance_matrix.tsv",
+        distances="join_clusters/main/merged_db/distance_matrix.tsv",
     output:
         dirout=directory("staging/clusters/"),
         merged="staging/clusters.json",
