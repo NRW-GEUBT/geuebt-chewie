@@ -9,5 +9,15 @@
         "test_db7",
         "test_new15"
     ],
-    "subclusters": []
+    "subclusters": [],
+    "distance_matrix": [
+        {
+            "test_db7": 0,
+            "test_new15": 5
+        },
+        {
+            "test_db7": 5,
+            "test_new15": 0
+        }
+    ]
 }

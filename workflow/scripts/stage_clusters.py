@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+b #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -18,7 +18,14 @@ except NameError:
 
 import os
 import json
+import numpy as np
 import pandas as pd
+from json import loads, dumps
+
+
+def _load_matrix(filepath):
+    df = pd.read_csv(filepath, header=None, index_col=0, sep="\t")
+    return (df.index.to_list(), df.to_numpy())
 
 
 def _get_cluster_numbers(x, sep):
@@ -51,6 +58,18 @@ def _get_subclusters_list(merged_df, prefix, dist):
     return listout
 
 
+def _filter_matrix(ids, matrix, isolates):
+    # Get indices of samples
+    indices = [ids.index(id) for id in isolates]
+    # filter array with indices
+    distances = matrix[np.ix_(indices, indices)]
+    return pd.DataFrame(
+        data=np.int_(distances),
+        index=isolates,
+        columns=isolates
+    )
+
+
 def map_names(cluster_df):
     """
     Assign available names to new clusters
@@ -79,6 +98,7 @@ def main(
     cluster_info,
     orphans,
     subcluster_info,
+    distances,
     prefix,
     main_dist,
     sub_dist,
@@ -94,6 +114,7 @@ def main(
     clusters = pd.read_csv(cluster_info, index_col=False, sep="\t")
     subclusters = pd.read_csv(subcluster_info, index_col=False, sep="\t")
     orphs = pd.read_csv(orphans, index_col=False, sep="\t")
+    dist = _load_matrix(distances)  # tuple(index, ndarray)
 
     # Parse cluster names and reformat
     clusters["external_cluster_name"] = clusters.apply(
@@ -162,6 +183,9 @@ def main(
         # Format as dict for JSON, or skip if nothing new
         if merged.empty:
             continue
+        distance_json = _filter_matrix(
+            *dist, merged['sample'].to_list()
+        ).to_json(orient="records")
         d = {
             "cluster_id": f"{prefix}-{merged.at[0, 'main_name']}",
             "cluster_number": int(merged.at[0, 'main_name']),
@@ -170,7 +194,8 @@ def main(
             "representative": merged.at[0, 'main_repr'],
             "AD_threshold": main_dist,
             "root_members": merged['sample'].loc[merged['sub_name'].isna()].to_list(),
-            "subclusters": _get_subclusters_list(merged, prefix, sub_dist)
+            "subclusters": _get_subclusters_list(merged, prefix, sub_dist),
+            "distance_matrix": loads(distance_json)
         }
         # Dump JSONs
         with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
@@ -178,11 +203,17 @@ def main(
 
         merged_json.append(d)
 
-    # If there are oprhans, also make an orphan JSON
+    # If there are orphans, also make an orphan JSON
+    # The orphan JSON will be used as global record including the representative
+    # of each main clusters, and the distances.
     if orphs.empty:
         members = []
     else:
         members = orphs["sample"].to_list()
+    # getting distance matrix of orphans + representatives of mainclusters
+    
+    # converting name of representatives to cluster names
+    
     d = {
         "cluster_id": f"{prefix}-orphans",
         "cluster_number": 0,
@@ -205,6 +236,7 @@ if __name__ == '__main__':
         cluster_info=snakemake.input['clusters_main'],
         orphans=snakemake.input['orphans_main'],
         subcluster_info=snakemake.input['clusters_sub'],
+        distances=snakemake.input['distances'],
         prefix=snakemake.params['prefix'],
         main_dist=snakemake.params['main_threshold'],
         sub_dist=snakemake.params['sub_threshold'],

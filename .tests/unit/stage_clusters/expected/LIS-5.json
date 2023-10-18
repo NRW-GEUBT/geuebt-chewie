@@ -19,5 +19,15 @@
                 "test_db5"
             ]
         }
+    ],
+    "distance_matrix": [
+        {
+            "test_db5": 0,
+            "test_new13": 5
+        },
+        {
+            "test_db5": 5,
+            "test_new13": 0
+        }
     ]
 }
