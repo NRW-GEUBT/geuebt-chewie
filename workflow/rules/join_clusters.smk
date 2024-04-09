@@ -87,7 +87,7 @@ rule chewie_join_main:
         species_shortname=config["cluster_prefix"],
         conda_prefix={workflow.conda_prefix},
     message:
-        "[Join clusters] Joining samples to precomputed subclusters with ChewieSnake-join"
+        "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
     threads: workflow.cores
     conda:
         "../envs/chewie.yaml"
@@ -110,6 +110,11 @@ rule chewie_join_main:
             --use_conda \
             --condaprefix {params.conda_prefix} \
             --threads {threads}
+
+        # If no clusters then sample_clusters will not exist!
+        if [ ! -f {output.sample_cluster} ]; then
+          echo "sample\tcluster_name\tSender\tTimestamp\trepresentative_sample\texternal_cluster_name\trepresentative_sample_externalcluster\tserovar\tcluster_name_3\tcluster_code" > {output.sample_cluster}
+        fi
         """
 
 
@@ -155,6 +160,11 @@ rule chewie_join_sub:
             --use_conda \
             --condaprefix {params.conda_prefix} \
             --threads {threads}
+
+        # If no clusters then sample_clusters will not exist!
+        if [ ! -f {output.sample_cluster} ]; then
+          echo "sample\tcluster_name\tSender\tTimestamp\trepresentative_sample\texternal_cluster_name\trepresentative_sample_externalcluster\tserovar\tcluster_name_3\tcluster_code" > {output.sample_cluster}
+        fi
         """
 
 
