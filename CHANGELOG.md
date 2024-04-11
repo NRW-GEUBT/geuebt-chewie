@@ -1,3 +1,12 @@
+### 0.3.2
+
+Fixing Version
+Fixing CI
+
+### 0.3.1
+
+Fix for the case where no cluster exists
+
 ### 0.3.0
 
 Added distance matrices to cluster descriptions:

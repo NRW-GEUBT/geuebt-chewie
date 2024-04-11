@@ -85,7 +85,7 @@ rule chewie_join_main:
         external_main_clusters=config["external_main_clusters"],
         distance_method=config["distance_method"],
         species_shortname=config["cluster_prefix"],
-        conda_prefix={workflow.conda_prefix},
+        conda_prefix=get_conda_prefix,
     message:
         "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
     threads: workflow.cores
@@ -135,7 +135,7 @@ rule chewie_join_sub:
         distance_method=config["distance_method"],
         species_shortname=config["cluster_prefix"],
         organism=config["organism"],
-        conda_prefix={workflow.conda_prefix},
+        conda_prefix=get_conda_prefix,
     message:
         "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
     threads: workflow.cores

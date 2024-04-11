@@ -24,6 +24,15 @@ def validate_input_param(path, schema):
         validate(df, schema=schema)
 
 
+def get_conda_prefix(wildcards):
+    try:
+        # snakemake < 8.0
+        return workflow.conda_prefix
+    except:
+        # snakemake > 8
+        return workflow.deployment_settings.conda_prefix
+
+
 # Input functions ------------------------------------
 def aggregate_json_call(wildcards):
     "Aggregate JSON outputs of chewie_call"
