@@ -18,7 +18,7 @@ checkpoint chewie_call:
         max_missing_loci=config["max_missing_loci"],
         distance_method=config["distance_method"],
         clustering_method=config["clustering_method"],
-        conda_prefix={workflow.conda_prefix},
+        conda_prefix=get_conda_prefix,
     message:
         "[Allele calling] Calling alleles using ChewieSnake"
     threads: workflow.cores
