@@ -20,6 +20,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
+from itertools import chain
 from json import loads
 
 
@@ -103,13 +104,8 @@ def main(
     main_dist,
     sub_dist,
     organism,
-    dirout,
     mergedout
 ):
-    # Make output dir
-    if not os.path.isdir(dirout):
-        os.mkdir(dirout)
-
     # Load data
     clusters = pd.read_csv(cluster_info, index_col=False, sep="\t")
     subclusters = pd.read_csv(subcluster_info, index_col=False, sep="\t")
@@ -192,6 +188,10 @@ def main(
         distance_json = _filter_matrix(
             *dist, merged['sample'].to_list()
         ).to_json(orient="records")
+
+        root_members = merged['sample'].loc[merged['sub_name'].isna()].to_list()
+        sublist = _get_subclusters_list(merged, prefix, sub_dist)
+
         d = {
             "cluster_id": f"{prefix}-{merged.at[0, 'main_name']}",
             "cluster_number": int(merged.at[0, 'main_name']),
@@ -199,17 +199,15 @@ def main(
             "size": len(merged['sample'].to_list()),
             "representative": merged.at[0, 'main_repr'],
             "AD_threshold": main_dist,
-            "root_members": merged['sample'].loc[merged['sub_name'].isna()].to_list(),
-            "subclusters": _get_subclusters_list(merged, prefix, sub_dist),
+            "members": root_members + list(chain(*[d["members"] for d in sublist])),
+            "root_members": root_members,
+            "subclusters": sublist,
             "distance_matrix": loads(distance_json)
         }
         cluster_tracking.append((
             merged.at[0, 'main_repr'],
             f"{prefix}-{merged.at[0, 'main_name']}"
         ))
-        # Dump JSONs
-        with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
-            json.dump(d, fp, indent=4)
 
         merged_json.append(d)
 
@@ -234,11 +232,10 @@ def main(
         "organism": organism,
         "size": len(members),
         "AD_threshold": main_dist,
+        "members": members,
         "root_members": members,
         "distance_matrix": loads(distance_json)
     }
-    with open(os.path.join(dirout, f"{d['cluster_id']}.json"), 'w') as fp:
-        json.dump(d, fp, indent=4)
 
     merged_json.append(d)
 
@@ -256,6 +253,5 @@ if __name__ == '__main__':
         main_dist=snakemake.params['main_threshold'],
         sub_dist=snakemake.params['sub_threshold'],
         organism=snakemake.params['organism'],
-        dirout=snakemake.output['dirout'],
         mergedout=snakemake.output['merged']
     )

@@ -168,25 +168,24 @@ rule chewie_join_sub:
         """
 
 
-checkpoint stage_clusters:
+rule make_cluster_sheets:
     input:
         clusters_main="join_clusters/main/merged_db/sample_cluster_information.tsv",
         orphans_main="join_clusters/main/merged_db/orphan_samples.tsv",
         clusters_sub="join_clusters/sub/merged_db/sample_cluster_information.tsv",
         distances="join_clusters/main/merged_db/distance_matrix.tsv",
     output:
-        dirout=directory("staging/clusters/"),
-        merged="staging/clusters.json",
+        merged="join_clusters/clusters.json",
     params:
         prefix=config["cluster_prefix"],
         main_threshold=config["cluster_distance"],
         sub_threshold=config["subcluster_distance"],
         organism=config["organism"],
     message:
-        "[Join clusters] Consolidating and staging clusters"
+        "[Join clusters] Making cluster sheets"
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/stage_clusters.log",
+        "logs/make_cluster_sheets.log",
     script:
-        "../scripts/stage_clusters.py"
+        "../scripts/make_cluster_sheets.py"

@@ -1,0 +1,7 @@
+name: grapetree
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - grapetree=2.1

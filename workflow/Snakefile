@@ -28,13 +28,8 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "staging/qc_status.json",
-        aggregate_qc_pass,
-        "join_clusters/main/merged_db/sample_cluster_information.tsv",
-        "join_clusters/main/merged_db/orphan_samples.tsv",
-        "join_clusters/sub/merged_db/sample_cluster_information.tsv",
-        "join_clusters/sub/merged_db/orphan_samples.tsv",
-        aggregate_cluster_sheets,
+        "join_clusters/clusters.json",
+        "trees/trees.json",
 
 
 # Includes --------------------------------------------------------------------
@@ -42,6 +37,7 @@ rule all:
 
 include: "rules/allele_calling.smk"
 include: "rules/join_clusters.smk"
+include: "rules/trees.smk"
 
 
 # Workflow --------------------------------------------------------------------
@@ -52,6 +48,8 @@ onstart:
     print(f"\nYou are using GEUEBT-CHEWIE version: {version}")
     with open(pipe_log, "a") as f:
         f.write(f"[{get_local_time()}]: Pipeline started\n")
+    # remove eventual lock on scheme
+    shutil.rmtree(os.path.join(config["cgmlst_scheme"], ".lock"), ignore_errors=True)
 
 
 onsuccess:

@@ -54,11 +54,13 @@ def aggregate_qc_pass(wildcards):
     return expand("staging/isolate_sheets/{qc_pass}.json", qc_pass=ids_map)
 
 
-def aggregate_cluster_sheets(wildcards):
-    "Aggregate clsuter info JSONs"
-    checkpoint_output = checkpoints.stage_clusters.get(**wildcards).output["dirout"]
-    ids_map = glob_wildcards(os.path.join(checkpoint_output, "{cluster}.json")).cluster
-    return expand("staging/clusters/{cluster}.json", cluster=ids_map)
+def aggregate_trees(wildcards):
+    "Aggregate Newick trees"
+    checkpoint_output = checkpoints.merge_profiles.get(**wildcards).output[
+        "profile_dir"
+    ]
+    ids_map = glob_wildcards(os.path.join(checkpoint_output, "{cluster_id}.tsv")).cluster_id
+    return expand("trees/trees/{cluster_id}.tre", cluster_id=ids_map)
 
 
 # Validating config ----------------------------------

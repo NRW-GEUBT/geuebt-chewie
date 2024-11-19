@@ -46,11 +46,11 @@ checkpoint chewie_call:
         """
 
 
-rule qc_status:
+rule qc_alleles:
     input:
         jsons=aggregate_json_call,
     output:
-        qc_status="staging/qc_status.json",
+        qc_status="qc/qc_alleles.json",
         sample_list="common/sample_list.txt",
     params:
         max_missing_loci=config["max_missing_loci"],
@@ -59,23 +59,6 @@ rule qc_status:
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/qc_status.log",
+        "logs/qc_alleles.log",
     script:
-        "../scripts/qc_status.py"
-
-
-checkpoint stage_profiles:
-    input:
-        jsons=aggregate_json_call,
-        qc="staging/qc_status.json",
-    output:
-        isolate_sheet_dir=directory("staging/isolate_sheets"),
-        merged="staging/isolate_sheets.json",
-    message:
-        "[Allele calling] Writting isolate sheets"
-    conda:
-        "../envs/pandas.yaml"
-    log:
-        "logs/stage_profiles.log",
-    script:
-        "../scripts/stage_profiles.py"
+        "../scripts/qc_alleles.py"
