@@ -62,5 +62,5 @@ if __name__ == '__main__':
         snakemake.input['new_profiles'],
         snakemake.input['clusters'],
         snakemake.output['profile_dir'],
-        snakemake.params['ext_profiles'],
+        snakemake.input['ext_profiles'],
     )

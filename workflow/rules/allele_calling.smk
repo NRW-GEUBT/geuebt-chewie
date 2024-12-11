@@ -15,7 +15,7 @@ checkpoint chewie_call:
         max_threads_per_job=config["max_threads_per_job"],
         cgmlst_scheme=config["cgmlst_scheme"],
         prodigal=config["prodigal"],
-        max_missing_loci=config["max_missing_loci"],
+        max_missing_loci=1,  # checks for max_missing_loci happen at the API level
         distance_method=config["distance_method"],
         clustering_method=config["clustering_method"],
         conda_prefix=get_conda_prefix,
@@ -44,21 +44,3 @@ checkpoint chewie_call:
             --threads {threads} \
             --threads_sample {params.max_threads_per_job}
         """
-
-
-rule qc_alleles:
-    input:
-        jsons=aggregate_json_call,
-    output:
-        qc_status="qc/qc_alleles.json",
-        sample_list="common/sample_list.txt",
-    params:
-        max_missing_loci=config["max_missing_loci"],
-    message:
-        "[Allele calling] Checking allele profiles quality"
-    conda:
-        "../envs/pandas.yaml"
-    log:
-        "logs/qc_alleles.log",
-    script:
-        "../scripts/qc_alleles.py"

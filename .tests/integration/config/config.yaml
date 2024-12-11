@@ -6,7 +6,7 @@
 # Database
 # --------
 
-API_url: "http://127.0.0.1:8000/API_test"
+API_url: "http://127.0.0.1:8010/API_test"
 
 # Input and Output paths
 # ----------------------
@@ -14,15 +14,6 @@ API_url: "http://127.0.0.1:8000/API_test"
 workdir: .tests/integration
 # Path to sample sheet
 sample_sheet: "config/samples.tsv"
-# Path to files with cluster representatives with 2 columns sample and cluster_name
-# For main clusters: only main cluster name with prefix ("LIS-1")
-external_main_clusters: "data/clusters_ext.tsv"
-# For subcluster the full subcluster name with prefix ("LIS-1.1")
-external_sub_clusters: "data/subclusters_ext.tsv"
-# Profiles etc.. info from external samples
-external_profiles: "data/profiles_ext.tsv"
-external_timestamps: "data/timestamps_ext.tsv"
-external_statistics: "data/statistics_ext.tsv"
 
 # Max number of threads assigned to single jobs
 max_threads_per_job: 1

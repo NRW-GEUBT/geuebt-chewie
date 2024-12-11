@@ -66,15 +66,3 @@ def aggregate_trees(wildcards):
 # Validating config ----------------------------------
 validate(config, schema="../schema/config.schema.yaml")
 validate_input_param(config["sample_sheet"], schema="../schema/samples.schema.yaml")
-validate_input_param(
-    config["external_main_clusters"], schema="../schema/clusters.schema.yaml"
-)
-validate_input_param(
-    config["external_sub_clusters"], schema="../schema/clusters.schema.yaml"
-)
-validate_input_param(
-    config["external_timestamps"], schema="../schema/timestamps.schema.yaml"
-)
-validate_input_param(
-    config["external_statistics"], schema="../schema/statistics.schema.yaml"
-)

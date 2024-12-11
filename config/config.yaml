@@ -14,15 +14,7 @@ API_url: "http://127.0.0.1:8000/API_test"
 workdir: /path/to/output/dir
 # Path to sample sheet
 sample_sheet: /path/to/sample_sheet
-# Path to files with cluster representatives with 2 columns sample and cluster_name
-# For main clusters: only main cluster name with prefix ("LIS-1")
-external_main_clusters: /path/to/external/clusters
-# For subcluster the full subcluster name with prefix ("LIS-1.1")
-external_sub_clusters: /path/to/external/subclusters
-# Profiles etc.. info from external samples
-external_profiles: /path/to/external/profiles
-external_timestamps: /path/to/external/timestamps
-external_statistics: /path/to/external/statistics
+
 
 # Max number of threads assigned to single jobs
 max_threads_per_job: 1

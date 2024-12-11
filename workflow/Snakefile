@@ -28,8 +28,10 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "join_clusters/clusters.json",
-        "trees/trees.json",
+        "staging/isolate_sheets.json",
+        "staging/clusters.json",
+        "staging/qc_status.json",
+        "staging/cluster_response_status.json",
 
 
 # Includes --------------------------------------------------------------------
@@ -38,6 +40,7 @@ rule all:
 include: "rules/allele_calling.smk"
 include: "rules/join_clusters.smk"
 include: "rules/trees.smk"
+include: "rules/staging.smk"
 
 
 # Workflow --------------------------------------------------------------------

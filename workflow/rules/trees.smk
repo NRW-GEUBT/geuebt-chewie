@@ -2,10 +2,11 @@ checkpoint merge_profiles:
     input:
         new_profiles="qcfilter/allele_profiles.tsv",
         clusters="join_clusters/clusters.json",
+        ext_profiles="dbdata/profiles_ext.tsv",
     output:
         profile_dir=directory("trees/merged_profiles")
     params:
-        ext_profiles=config["external_profiles"],
+        
     message:
         "[Trees] Joining allele profiles per clusters"
     conda:
