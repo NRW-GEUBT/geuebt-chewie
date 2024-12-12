@@ -132,7 +132,7 @@ rule chewie_join_sub:
     params:
         chewie=os.path.join(config["chewie_path"], "chewieSnake_join.py"),
         clustering_method=lambda w, input: get_setting_value(input.settings, "clustering_method"),
-        distance_threshold=lambda w, input: get_setting_value(input.settings, "cluster_distance"),
+        distance_threshold=lambda w, input: get_setting_value(input.settings, "subcluster_distance"),
         distance_method=lambda w, input: get_setting_value(input.settings, "distance_method"),
         species_shortname=lambda w, input: get_setting_value(input.settings, "cluster_prefix"),
         conda_prefix=get_conda_prefix,
