@@ -37,6 +37,9 @@ rule get_clusters_repr:
 rule get_isolate_info:
     input:
         settings="dbdata/settings.json",
+        # Ensure that profile fetching happens after profile posting
+        # and that for new samples, profiles are fetched locally
+        sample_list="common/sample_list.txt",
     output:
         profiles="dbdata/profiles_ext.tsv",
         statistics="dbdata/statistics_ext.tsv",
