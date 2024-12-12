@@ -70,6 +70,7 @@ rule make_join_list:
 # First join at main cluters level
 rule chewie_join_main:
     input:
+        settings="dbdata/settings.json",
         samplelist="qcfilter/sample_list.tsv",
         serovars="dummy/serovar_info.tsv",
         external_main_clusters="dbdata/clusters_ext.tsv",
@@ -80,10 +81,10 @@ rule chewie_join_main:
         distances="join_clusters/main/merged_db/distance_matrix.tsv",
     params:
         chewie=os.path.join(config["chewie_path"], "chewieSnake_join.py"),
-        clustering_method=config["clustering_method"],
-        distance_threshold=config["cluster_distance"],
-        distance_method=config["distance_method"],
-        species_shortname=config["cluster_prefix"],
+        clustering_method=lambda w, input: get_setting_value(input.settings, "clustering_method"),
+        distance_threshold=lambda w, input: get_setting_value(input.settings, "cluster_distance"),
+        distance_method=lambda w, input: get_setting_value(input.settings, "distance_method"),
+        species_shortname=lambda w, input: get_setting_value(input.settings, "cluster_prefix"),
         conda_prefix=get_conda_prefix,
     message:
         "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
@@ -120,6 +121,7 @@ rule chewie_join_main:
 # Then join at subcluster level
 rule chewie_join_sub:
     input:
+        settings="dbdata/settings.json",
         samplelist="qcfilter/sample_list.tsv",
         serovars="dummy/serovar_info.tsv",
         external_sub_clusters="dbdata/subclusters_ext.tsv",
@@ -129,11 +131,10 @@ rule chewie_join_sub:
         orphans="join_clusters/sub/merged_db/orphan_samples.tsv",
     params:
         chewie=os.path.join(config["chewie_path"], "chewieSnake_join.py"),
-        clustering_method=config["clustering_method"],
-        distance_threshold=config["subcluster_distance"],
-        distance_method=config["distance_method"],
-        species_shortname=config["cluster_prefix"],
-        organism=config["organism"],
+        clustering_method=lambda w, input: get_setting_value(input.settings, "clustering_method"),
+        distance_threshold=lambda w, input: get_setting_value(input.settings, "cluster_distance"),
+        distance_method=lambda w, input: get_setting_value(input.settings, "distance_method"),
+        species_shortname=lambda w, input: get_setting_value(input.settings, "cluster_prefix"),
         conda_prefix=get_conda_prefix,
     message:
         "[Join clusters] Joining samples to precomputed clusters with ChewieSnake-join"
@@ -169,6 +170,7 @@ rule chewie_join_sub:
 
 rule make_cluster_sheets:
     input:
+        settings="dbdata/settings.json",
         clusters_main="join_clusters/main/merged_db/sample_cluster_information.tsv",
         orphans_main="join_clusters/main/merged_db/orphan_samples.tsv",
         clusters_sub="join_clusters/sub/merged_db/sample_cluster_information.tsv",
@@ -176,10 +178,10 @@ rule make_cluster_sheets:
     output:
         merged="join_clusters/clusters.json",
     params:
-        prefix=config["cluster_prefix"],
-        main_threshold=config["cluster_distance"],
-        sub_threshold=config["subcluster_distance"],
-        organism=config["organism"],
+        prefix=lambda w, input: get_setting_value(input.settings, "cluster_prefix"),
+        main_threshold=lambda w, input: get_setting_value(input.settings, "cluster_distance"),
+        sub_threshold=lambda w, input: get_setting_value(input.settings, "subcluster_distance"),
+        organism=lambda w, input: get_setting_value(input.settings, "organism"),
     message:
         "[Join clusters] Making cluster sheets"
     conda:

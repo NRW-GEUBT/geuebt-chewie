@@ -3,6 +3,8 @@
 
 
 checkpoint chewie_call:
+    input:
+        settings="dbdata/settings.json",
     output:
         outdir=directory("allele_calling"),
         jsons=directory("allele_calling/cgmlst/json"),
@@ -13,11 +15,11 @@ checkpoint chewie_call:
         chewie=os.path.join(config["chewie_path"], "chewieSnake.py"),
         samples_sheet=config["sample_sheet"],
         max_threads_per_job=config["max_threads_per_job"],
-        cgmlst_scheme=config["cgmlst_scheme"],
-        prodigal=config["prodigal"],
+        cgmlst_scheme=lambda w, input: get_setting_value(input.settings, "scheme_path"),
+        prodigal=lambda w, input: get_setting_value(input.settings, "prodigal_path"),
         max_missing_loci=1,  # checks for max_missing_loci happen at the API level
-        distance_method=config["distance_method"],
-        clustering_method=config["clustering_method"],
+        distance_method=lambda w, input: get_setting_value(input.settings, "distance_method"),
+        clustering_method=lambda w, input: get_setting_value(input.settings, "clustering_method"),
         conda_prefix=get_conda_prefix,
     message:
         "[Allele calling] Calling alleles using ChewieSnake"

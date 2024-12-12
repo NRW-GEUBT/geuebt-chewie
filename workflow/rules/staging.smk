@@ -1,11 +1,29 @@
 # GET data
+rule get_settings:
+    output:
+        settings="dbdata/settings.json",
+    params:
+        url=config["API_url"],
+        organism=config["organism"],
+    message:
+        "[BakCharak] Getting analysis settings"
+    conda:
+        "../envs/pandas.yaml"
+    log:
+        "logs/get_settings.log",
+    script:
+        "../scripts/get_settings.py"
+
+
 rule get_clusters_repr:
+    input:
+        settings="dbdata/settings.json",
     output:
         main="dbdata/clusters_ext.tsv",
         sub="dbdata/subclusters_ext.tsv",
     params:
         url=config["API_url"],
-        organism=config["organism"],
+        organism=lambda w, input: get_setting_value(input.settings, "organism"),
     message:
         "[Staging] Getting cluster information from databse"
     conda:
@@ -17,13 +35,16 @@ rule get_clusters_repr:
 
 
 rule get_isolate_info:
+    input:
+        settings="dbdata/settings.json",
     output:
         profiles="dbdata/profiles_ext.tsv",
         statistics="dbdata/statistics_ext.tsv",
         timestamps="dbdata/timestamps_ext.tsv",
     params:
         url=config["API_url"],
-        organism=config["organism"],
+        organism=lambda w, input: get_setting_value(input.settings, "organism"),
+        scheme=lambda w, input: get_setting_value(input.settings, "scheme_path"),
     message:
         "[Staging] Getting isolates information from database"
     conda:

@@ -24,19 +24,7 @@ ephemeral: False
 # Databases
 # ---------
 chewie_path: "~/.nrw-geuebt/chewieSnake"
-cgmlst_scheme: "data/Listeria_cgmlst_Ruppitsch_chewbbaca/cgmlst"
-prodigal: "~/.nrw-geuebt/chewieSnake/chewBBACA/CHEWBBACA/prodigal_training_files/Listeria_monocytogenes.trn"
 
 # Additional parameters
 # ---------------------
-# Grapetree distance method
-distance_method: 3
-# The agglomeration method to be used for hierarchical clustering
-clustering_method: "single"
-# A single distance threshold for the exctraction of sub-trees
-cluster_distance: 10
-# A list of distance thresholds for subclustering
-subcluster_distance: 5
-# Prefix for cluster naming
-cluster_prefix: "LIS"
 organism: "Listeria monocytogenes"

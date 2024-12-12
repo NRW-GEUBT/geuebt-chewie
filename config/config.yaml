@@ -25,21 +25,8 @@ ephemeral: False
 # Databases
 # ---------
 chewie_path: "~/.nrw-geuebt/chewieSnake"
-cgmlst_scheme: "data/Ruppitsch_chewbbacca/cgmlst"
-# Use the prodigal file for your species!
-prodigal: "~/.nrw-geuebt/chewieSnake/chewBBACA/CHEWBBACA/prodigal_training_files/<SPECIES_OF_INTEREST>.trn"
 
 # Additional parameters
 # ---------------------
-# Grapetree distance method
-distance_method: 3
-# The agglomeration method to be used for hierarchical clustering
-clustering_method: "single"
-# A single distance threshold for the exctraction of sub-trees
-cluster_distance: 10
-# A list of distance thresholds for subclustering
-subcluster_distance: 5
-# Prefix for cluster naming
-cluster_prefix: "CT"
 # Organism name
 organism: "Genus species"

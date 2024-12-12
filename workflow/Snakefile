@@ -51,8 +51,6 @@ onstart:
     print(f"\nYou are using GEUEBT-CHEWIE version: {version}")
     with open(pipe_log, "a") as f:
         f.write(f"[{get_local_time()}]: Pipeline started\n")
-    # remove eventual lock on scheme
-    shutil.rmtree(os.path.join(config["cgmlst_scheme"], ".lock"), ignore_errors=True)
 
 
 onsuccess:

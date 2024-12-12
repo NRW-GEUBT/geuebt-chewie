@@ -1,5 +1,6 @@
 import os
 import time
+import json
 import pandas as pd
 from snakemake.utils import validate
 
@@ -61,6 +62,12 @@ def aggregate_trees(wildcards):
     ]
     ids_map = glob_wildcards(os.path.join(checkpoint_output, "{cluster_id}.tsv")).cluster_id
     return expand("trees/trees/{cluster_id}.tre", cluster_id=ids_map)
+
+
+def get_setting_value(file, value):
+    with open(file, "r") as fi:
+        d = json.load(fi)
+    return d[value]
 
 
 # Validating config ----------------------------------
