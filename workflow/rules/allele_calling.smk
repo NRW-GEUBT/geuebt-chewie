@@ -2,6 +2,9 @@
 # Produce QC status stage allele profiles
 
 
+import os
+
+
 checkpoint chewie_call:
     input:
         settings="dbdata/settings.json",
@@ -12,7 +15,7 @@ checkpoint chewie_call:
         statistics="allele_calling/cgmlst/allele_statistics.tsv",
         timestamps="allele_calling/cgmlst/timestamps.tsv",
     params:
-        chewie=os.path.join(config["chewie_path"], "chewieSnake.py"),
+        chewie=os.path.expanduser(f"~/.nrw-geuebt/geuebt-chewie-{version}/chewieSnake/chewieSnake.py"),
         samples_sheet=config["sample_sheet"],
         max_threads_per_job=config["max_threads_per_job"],
         cgmlst_scheme=lambda w, input: get_setting_value(input.settings, "scheme_path"),

@@ -7,8 +7,10 @@ chewie_repo="https://gitlab.com/bfr_bioinformatics/chewieSnake.git"
 # Commit hash to use
 commit="b7117542d3460c8234ab5a3a4f5545aef443cbf2"
 
+VERSION=$(cat "../../VERSION")
+
 # Local directory to save the Repo
-local_dir="$HOME/.nrw-geuebt/chewieSnake/"
+local_dir="$HOME/.nrw-geuebt/geuebt-chewie-${VERSION}/chewieSnake/"
 
 # if already exists, wipe it clean and redo clone
 [ -d "$local_dir" ] && rm -rf "$local_dir"
