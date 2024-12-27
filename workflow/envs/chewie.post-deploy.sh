@@ -7,7 +7,8 @@ chewie_repo="https://gitlab.com/bfr_bioinformatics/chewieSnake.git"
 # Commit hash to use
 commit="b7117542d3460c8234ab5a3a4f5545aef443cbf2"
 
-VERSION=$(cat "../../VERSION")
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+VERSION=$(cat "$SCRIPT_DIR/../../VERSION")
 
 # Local directory to save the Repo
 local_dir="$HOME/.nrw-geuebt/geuebt-chewie-${VERSION}/chewieSnake/"
