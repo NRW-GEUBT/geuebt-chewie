@@ -46,7 +46,7 @@ def main(json_files, qc_out, isolate_sheet_dir, merged, sample_list, url):
         )
 
         if response.status_code == 200:
-            qc[isolate_id] = {"MESSAGES": response.json()["message"]}
+            qc[isolate_id] = {"STATUS": "PASS", "MESSAGES": [response.json()["message"]]}
 
             jdata["isolate_id"] = isolate_id        
 
@@ -61,14 +61,12 @@ def main(json_files, qc_out, isolate_sheet_dir, merged, sample_list, url):
             err_msg = response.json()["detail"][0]["msg"]
             err_field = "/".join(response.json()["detail"][0]["loc"])
             nice_error = f"VALIDATION ERROR '{err_type}': {err_msg}; for field: '{err_field}'"
-            qc[isolate_id] = {"STATUS": "FAIL"}
-            qc[isolate_id] = {"MESSAGES": nice_error}
+            qc[isolate_id] = {"STATUS": "FAIL", "MESSAGES": [nice_error]}
         else:  # will catch 404 - no need for special case
-            qc[isolate_id] = {"STATUS": "FAIL"}
-            qc[isolate_id] = {"MESSAGES":
+            qc[isolate_id] = {"STATUS": "FAIL", "MESSAGES": [
                 f"An unexpected error has occured, contact a geuebt admin."
                 f"Status: {response.status_code}."
-                f"Body: {response.text}"
+                f"Body: {response.text}"]
             }
 
     with open(merged, "w") as fo:
