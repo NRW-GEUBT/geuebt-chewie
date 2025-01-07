@@ -39,7 +39,7 @@ def main(trees_in, clusters_in, qc_out, cluster_dir, merged_clusters, url):
         )
 
         if response.status_code == 200:
-            qc[cluster_id] = {"MESSAGES": response.json()["message"]}
+            qc[cluster_id] = {"MESSAGES": [response.json()["message"]]}
 
             mergedlist.append(record)
 
@@ -53,13 +53,13 @@ def main(trees_in, clusters_in, qc_out, cluster_dir, merged_clusters, url):
             err_field = "/".join(response.json()["detail"][0]["loc"])
             nice_error = f"VALIDATION ERROR '{err_type}': {err_msg}; for field: '{err_field}'"
             qc[cluster_id] = {"STATUS": "FAIL"}
-            qc[cluster_id] = {"MESSAGES": nice_error}
+            qc[cluster_id] = {"MESSAGES": [nice_error]}
         else:  # will catch 404 - no need for special case
             qc[cluster_id] = {"STATUS": "FAIL"}
-            qc[cluster_id] = {"MESSAGES":
+            qc[cluster_id] = {"MESSAGES": [
                 f"An unexpected error has occured, contact a geuebt admin."
                 f"Status: {response.status_code}."
-                f"Body: {response.text}"
+                f"Body: {response.text}"]
             }
 
     with open(merged_clusters, "w") as fo:
