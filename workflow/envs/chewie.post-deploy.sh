@@ -7,8 +7,6 @@ chewie_repo="https://gitlab.com/bfr_bioinformatics/chewieSnake.git"
 # Commit hash to use
 commit="b7117542d3460c8234ab5a3a4f5545aef443cbf2"
 
-VERSION=$(cat "../../VERSION")
-
 # Local directory to save the Repo
 local_dir="${CONDA_PREFIX}/chewieSnake/"
 
