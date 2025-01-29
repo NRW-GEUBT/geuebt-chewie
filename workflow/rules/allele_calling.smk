@@ -15,7 +15,6 @@ checkpoint chewie_call:
         statistics="allele_calling/cgmlst/allele_statistics.tsv",
         timestamps="allele_calling/cgmlst/timestamps.tsv",
     params:
-        chewie=os.path.expanduser(f"~/.nrw-geuebt/geuebt-chewie-{version}/chewieSnake/chewieSnake.py"),
         samples_sheet=config["sample_sheet"],
         max_threads_per_job=config["max_threads_per_job"],
         cgmlst_scheme=lambda w, input: get_setting_value(input.settings, "scheme_path"),
@@ -35,7 +34,7 @@ checkpoint chewie_call:
         """
         exec 2> {log}
         
-        python {params.chewie} \
+        python $CONDA_PREFIX/chewieSnake/chewieSnake.py \
             --sample_list {params.samples_sheet} \
             --working_directory {output.outdir} \
             --scheme {params.cgmlst_scheme} \

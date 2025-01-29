@@ -1,3 +1,8 @@
+### 1.2.0
+
+Deployement under CONDA_PREFIX
+Adapted to API
+
 ### 0.3.2
 
 Fixing Version

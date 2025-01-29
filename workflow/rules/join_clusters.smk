@@ -83,7 +83,6 @@ rule chewie_join_main:
         orphans="join_clusters/main/merged_db/orphan_samples.tsv",
         distances="join_clusters/main/merged_db/distance_matrix.tsv",
     params:
-        chewie=os.path.expanduser(f"~/.nrw-geuebt/geuebt-chewie-{version}/chewieSnake/chewieSnake_join.py"),
         clustering_method=lambda w, input: get_setting_value(input.settings, "clustering_method"),
         distance_threshold=lambda w, input: get_setting_value(input.settings, "cluster_distance"),
         distance_method=lambda w, input: get_setting_value(input.settings, "distance_method"),
@@ -100,7 +99,7 @@ rule chewie_join_main:
         """
         exec 2> {log}
 
-        python {params.chewie} \
+        python $CONDA_PREFIX/chewieSnake/chewieSnake_join.py \
             --sample_list {input.samplelist} \
             --working_directory {output.outdir} \
             --clustering_method {params.clustering_method} \
@@ -133,7 +132,6 @@ rule chewie_join_sub:
         sample_cluster="join_clusters/sub/merged_db/sample_cluster_information.tsv",
         orphans="join_clusters/sub/merged_db/orphan_samples.tsv",
     params:
-        chewie=os.path.expanduser(f"~/.nrw-geuebt/geuebt-chewie-{version}/chewieSnake/chewieSnake_join.py"),
         clustering_method=lambda w, input: get_setting_value(input.settings, "clustering_method"),
         distance_threshold=lambda w, input: get_setting_value(input.settings, "subcluster_distance"),
         distance_method=lambda w, input: get_setting_value(input.settings, "distance_method"),
@@ -150,7 +148,7 @@ rule chewie_join_sub:
         """
         exec 2> {log}
 
-        python {params.chewie} \
+        python $CONDA_PREFIX/chewieSnake/chewieSnake_join.py \
             --sample_list {input.samplelist} \
             --working_directory {output.outdir} \
             --clustering_method {params.clustering_method} \
