@@ -69,6 +69,7 @@ rule post_profiles:
         sample_list="common/sample_list.txt",
     params:
         url=config["API_url"],
+        ver=version,
     message:
         "[Staging] POST profiles"
     conda:

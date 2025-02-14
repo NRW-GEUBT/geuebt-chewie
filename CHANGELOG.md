@@ -1,3 +1,7 @@
+### 1.3.0
+
+Report version to API
+
 ### 1.2.0
 
 Deployement under CONDA_PREFIX

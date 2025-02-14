@@ -18,7 +18,7 @@ import requests
 from urllib.parse import urljoin
 
 
-def main(json_files, qc_out, isolate_sheet_dir, merged, sample_list, url):
+def main(json_files, qc_out, isolate_sheet_dir, merged, sample_list, url, ver):
     os.makedirs(isolate_sheet_dir, exist_ok=True)
     mergedlist = []
     slist = []
@@ -37,7 +37,8 @@ def main(json_files, qc_out, isolate_sheet_dir, merged, sample_list, url):
                     "allele_profile": allele_profile,
                     "allele_stats": allele_stats
                 },
-            "qc_metrics": {"cgmlst_missing_fraction": missing_frac}
+            "qc_metrics": {"cgmlst_missing_fraction": missing_frac},
+            "sample_info": {"geuebt_chewie_ver": ver}
         }
 
         response = requests.put(
@@ -86,4 +87,5 @@ if __name__ == '__main__':
         snakemake.output['merged'],
         snakemake.output['sample_list'],
         snakemake.params['url'],
+        snakemake.params['ver'],
     )
