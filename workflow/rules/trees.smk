@@ -17,6 +17,7 @@ checkpoint merge_profiles:
         "../scripts/merge_profiles.py"
 
 
+# Grapetree crashes on null matrix so catch exit 0 and manually make the tree
 rule grapetree:
     input:
         profile="trees/merged_profiles/{cluster_id}.tsv"
@@ -31,8 +32,6 @@ rule grapetree:
     shell:
         """
         exec 2> {log}
-        # grapetree crashes on 0 matrix, need to genereate single node tree manually
-        # basically just "(id1,id2,id3);" NB: omitting distance is the same as distance 0
         grapetree -p {input.profile} -m MSTreeV2 > {output.tree} || echo \($(cut -f1 {input.profile} | tail -n+2 | paste -sd "," -)\)\; > {output.tree}
         """
 

@@ -4,4 +4,5 @@ channels:
   - bioconda
   - defaults
 dependencies:
+  - python=3.12
   - grapetree=2.1
