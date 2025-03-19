@@ -1,3 +1,7 @@
+### 1.3.2
+
+Add branch length to null tree
+
 ### 1.3.1
 
 Fix trees

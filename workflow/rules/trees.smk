@@ -32,7 +32,7 @@ rule grapetree:
     shell:
         """
         exec 2> {log}
-        grapetree -p {input.profile} -m MSTreeV2 > {output.tree} || echo \($(cut -f1 {input.profile} | tail -n+2 | paste -sd "," -)\)\; > {output.tree}
+        grapetree -p {input.profile} -m MSTreeV2 > {output.tree} || echo \($(cut -f1 {input.profile} | tail -n+2 | paste -sd ":0," -):0\)\; > {output.tree}
         """
 
 
