@@ -32,7 +32,14 @@ rule grapetree:
     shell:
         """
         exec 2> {log}
-        grapetree -p {input.profile} -m MSTreeV2 > {output.tree} || echo \($(cut -f1 {input.profile} | tail -n+2 | paste -sd ":0," -):0\)\; > {output.tree}
+        if grapetree -p {input.profile} -m MSTreeV2 > {output.tree}; then
+            echo "GrapeTree succeeded."
+        else
+            echo "GrapeTree failed. Generating fallback Newick tree."
+            # Extract sample names and construct a simple Newick tree
+            samples=$(cut -f1  {input.profile} | tail -n +2 | awk '{{printf "%s:0,", $1}}' | sed 's/,$//')
+            echo "($samples);" > {output.tree}
+        fi
         """
 
 
