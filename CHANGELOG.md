@@ -1,3 +1,7 @@
+### 1.3.4
+
+Add API Authentication
+
 ### 1.3.3
 
 Fix fallback tree generation

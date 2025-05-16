@@ -18,6 +18,26 @@ import requests
 from urllib.parse import urljoin
 
 
+USERNAME = os.getenv("GEUEBT_API_USERNAME")
+PASSWORD = os.getenv("GEUEBT_API_PASSWORD")
+
+
+def login(url, username, password):
+    response = requests.post(
+        f"{url}/users/token",
+        data={"username": username, "password": password},
+        headers={"Content-Type": "application/x-www-form-urlencoded"}
+    )
+    response.raise_for_status()
+    return response.json()["access_token"]
+
+
+def authenticated_request( method, endpoint, token, **kwargs):
+    headers = kwargs.pop("headers", {})
+    headers["Authorization"] = f"Bearer {token}"
+    return requests.request(method, endpoint, headers=headers, **kwargs)
+
+
 def main(trees_in, clusters_in, qc_out, cluster_dir, merged_clusters, url):
     os.makedirs(cluster_dir, exist_ok=True)
 
@@ -28,14 +48,20 @@ def main(trees_in, clusters_in, qc_out, cluster_dir, merged_clusters, url):
         clusters = json.load(fi)
     with open(trees_in, "r") as fi:
         trees = json.load(fi)
-        
+    
+    if not USERNAME or not PASSWORD:
+        raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
+    token = login(USERNAME, PASSWORD)
+
     for record in clusters:
         cluster_id = record["cluster_id"]
         record["tree"] = trees[cluster_id]
 
-        response = requests.put(
+        response = authenticated_request(
+            "PUT",
             urljoin(url, f"clusters/{cluster_id}"),
-            json = record
+            token,
+            json=record
         )
 
         if response.status_code == 200:

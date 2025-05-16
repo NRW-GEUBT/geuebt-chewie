@@ -18,6 +18,26 @@ import requests
 from urllib.parse import urljoin
 
 
+USERNAME = os.getenv("GEUEBT_API_USERNAME")
+PASSWORD = os.getenv("GEUEBT_API_PASSWORD")
+
+
+def login(url, username, password):
+    response = requests.post(
+        f"{url}/users/token",
+        data={"username": username, "password": password},
+        headers={"Content-Type": "application/x-www-form-urlencoded"}
+    )
+    response.raise_for_status()
+    return response.json()["access_token"]
+
+
+def authenticated_request( method, endpoint, token, **kwargs):
+    headers = kwargs.pop("headers", {})
+    headers["Authorization"] = f"Bearer {token}"
+    return requests.request(method, endpoint, headers=headers, **kwargs)
+
+
 def main(json_files, qc_out, isolate_sheet_dir, merged, sample_list, url, ver):
     os.makedirs(isolate_sheet_dir, exist_ok=True)
     mergedlist = []
@@ -41,8 +61,13 @@ def main(json_files, qc_out, isolate_sheet_dir, merged, sample_list, url, ver):
             "sample_info": {"geuebt_chewie_ver": ver}
         }
 
-        response = requests.put(
+        if not USERNAME or not PASSWORD:
+            raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
+        token = login(USERNAME, PASSWORD)
+        response = authenticated_request(
+            "PUT",
             urljoin(url, f"isolates/{isolate_id}/allele_profile"),
+            token,
             json=jdata
         )
 
