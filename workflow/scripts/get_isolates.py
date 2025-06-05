@@ -20,6 +20,25 @@ from urllib.parse import urljoin
 
 FASTA_EXT = [".fa", ".faa", ".fna", ".ffn", ".frn", ".fasta"]
 
+USERNAME = os.getenv("GEUEBT_API_USERNAME")
+PASSWORD = os.getenv("GEUEBT_API_PASSWORD")
+
+
+def login(url, username, password):
+    response = requests.post(
+        f"{url}/users/token",
+        data={"username": username, "password": password},
+        headers={"Content-Type": "application/x-www-form-urlencoded"}
+    )
+    response.raise_for_status()
+    return response.json()["access_token"]
+
+
+def authenticated_request(method, endpoint, token, **kwargs):
+    headers = kwargs.pop("headers", {})
+    headers["Authorization"] = f"Bearer {token}"
+    return requests.request(method, endpoint, headers=headers, **kwargs)
+
 
 def list_scheme_files(folder, exts=FASTA_EXT):
     files = []
@@ -30,8 +49,13 @@ def list_scheme_files(folder, exts=FASTA_EXT):
 
 
 def main(sample_list, profiles_out, statistics_out, timestamps_out, url, organism, scheme):
-    response_list = requests.get(
+    if not USERNAME or not PASSWORD:
+        raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
+    token = login(USERNAME, PASSWORD)
+    response_list = authenticated_request(
+        "GET",
         urljoin(url, "isolates"),
+        token,
         params={"species": organism}
     )
 
@@ -55,8 +79,10 @@ def main(sample_list, profiles_out, statistics_out, timestamps_out, url, organis
         if isolate_id in local_ids:
             continue
 
-        response_profile = requests.get(
-            urljoin(url, f"isolates/{isolate_id}/allele_profile")
+        response_profile = authenticated_request(
+            "GET",
+            urljoin(url, f"isolates/{isolate_id}/allele_profile"),
+            token
         )
 
         # No profile yet - this should actually not happens but still should be caught if it does

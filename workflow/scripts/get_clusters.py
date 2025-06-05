@@ -17,9 +17,34 @@ import pandas as pd
 from urllib.parse import urljoin
 
 
+USERNAME = os.getenv("GEUEBT_API_USERNAME")
+PASSWORD = os.getenv("GEUEBT_API_PASSWORD")
+
+
+def login(url, username, password):
+    response = requests.post(
+        f"{url}/users/token",
+        data={"username": username, "password": password},
+        headers={"Content-Type": "application/x-www-form-urlencoded"}
+    )
+    response.raise_for_status()
+    return response.json()["access_token"]
+
+
+def authenticated_request(method, endpoint, token, **kwargs):
+    headers = kwargs.pop("headers", {})
+    headers["Authorization"] = f"Bearer {token}"
+    return requests.request(method, endpoint, headers=headers, **kwargs)
+
+
 def main(main_out, sub_out, url, organism):
-    response_list = requests.get(
+    if not USERNAME or not PASSWORD:
+        raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
+    token = login(USERNAME, PASSWORD)
+    response_list = authenticated_request(
+        "GET",
         urljoin(url, "clusters"),
+        token,
         params={"species": organism}
     )
 
@@ -35,8 +60,10 @@ def main(main_out, sub_out, url, organism):
 
     for record in response_list.json():
         cluster_id = record["cluster_id"]
-        response_cluster = requests.get(
-            urljoin(url, f"clusters/{cluster_id}")
+        response_cluster = authenticated_request(
+            "GET",
+            urljoin(url, f"clusters/{cluster_id}"),
+            token
         )
         jdata = response_cluster.json()
         main_ids.append(jdata["cluster_id"])
