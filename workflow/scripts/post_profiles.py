@@ -63,7 +63,7 @@ def main(json_files, qc_out, isolate_sheet_dir, merged, sample_list, url, ver):
 
         if not USERNAME or not PASSWORD:
             raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
-        token = login(USERNAME, PASSWORD)
+        token = login(url, USERNAME, PASSWORD)
         response = authenticated_request(
             "PUT",
             urljoin(url, f"isolates/{isolate_id}/allele_profile"),

@@ -40,7 +40,7 @@ def authenticated_request(method, endpoint, token, **kwargs):
 def main(main_out, sub_out, url, organism):
     if not USERNAME or not PASSWORD:
         raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
-    token = login(USERNAME, PASSWORD)
+    token = login(url, USERNAME, PASSWORD)
     response_list = authenticated_request(
         "GET",
         urljoin(url, "clusters"),

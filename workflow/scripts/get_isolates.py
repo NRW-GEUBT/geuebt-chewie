@@ -51,7 +51,7 @@ def list_scheme_files(folder, exts=FASTA_EXT):
 def main(sample_list, profiles_out, statistics_out, timestamps_out, url, organism, scheme):
     if not USERNAME or not PASSWORD:
         raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
-    token = login(USERNAME, PASSWORD)
+    token = login(url, USERNAME, PASSWORD)
     response_list = authenticated_request(
         "GET",
         urljoin(url, "isolates"),

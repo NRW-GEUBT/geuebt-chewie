@@ -51,7 +51,7 @@ def main(trees_in, clusters_in, qc_out, cluster_dir, merged_clusters, url):
     
     if not USERNAME or not PASSWORD:
         raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
-    token = login(USERNAME, PASSWORD)
+    token = login(url, USERNAME, PASSWORD)
 
     for record in clusters:
         cluster_id = record["cluster_id"]
