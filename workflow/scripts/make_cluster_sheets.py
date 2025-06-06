@@ -283,6 +283,6 @@ if __name__ == '__main__':
         main_dist=snakemake.params["main_threshold"],
         sub_dist=snakemake.params["sub_threshold"],
         organism= snakemake.params["organism"],
-        cluster_json=snakemake.output["clusters_json"],
+        cluster_json=snakemake.output["cluster_json"],
         merged_json=snakemake.output["merged_json"],
     )

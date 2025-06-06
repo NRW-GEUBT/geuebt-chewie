@@ -1,3 +1,7 @@
+### 1.4.1
+
+fix typo in varname
+
 ### 1.4.0
 
 Support automated cluster merging
