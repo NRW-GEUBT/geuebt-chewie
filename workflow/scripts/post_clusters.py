@@ -46,6 +46,8 @@ def main(trees_in, clusters_in, merged_in, qc_out, cluster_dir, merged_clusters,
 
     with open(clusters_in, "r") as fi:
         clusters = json.load(fi)
+    with open(merged_in, "r") as fi:
+        merged = json.load(fi)
     with open(trees_in, "r") as fi:
         trees = json.load(fi)
 
@@ -88,7 +90,7 @@ def main(trees_in, clusters_in, merged_in, qc_out, cluster_dir, merged_clusters,
             }
 
     # POST merged clusters
-    for record in merged_in:
+    for record in merged:
         cluster_id = record["new_cluster"]["cluster_id"]
         record["new_cluster"]["tree"] = trees[cluster_id]
 

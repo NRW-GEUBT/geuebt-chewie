@@ -1,3 +1,7 @@
+### 1.4.2
+
+Fix merged_cluster POST
+
 ### 1.4.1
 
 fix typo in varname
