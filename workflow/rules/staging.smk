@@ -84,6 +84,7 @@ rule post_clusters:
     input:
         trees="trees/trees.json",
         clusters="join_clusters/clusters.json",
+        merged_json="join_clusters/merged_clusters.json",
     output:
         qc="staging/cluster_response_status.json",
         cluster_sheet_dir=directory("staging/clusters"),

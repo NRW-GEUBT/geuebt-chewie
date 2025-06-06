@@ -12,6 +12,7 @@ except NameError:
     pass
 
 
+import os
 import requests
 import pandas as pd
 from urllib.parse import urljoin

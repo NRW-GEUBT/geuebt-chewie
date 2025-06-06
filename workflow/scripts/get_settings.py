@@ -12,6 +12,7 @@ except NameError:
     pass
 
 
+import os
 import requests
 import json
 from urllib.parse import urljoin

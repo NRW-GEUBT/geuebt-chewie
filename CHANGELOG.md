@@ -1,3 +1,7 @@
+### 1.4.0
+
+Support automated cluster merging
+
 ### 1.3.6
 
 Fix authentication

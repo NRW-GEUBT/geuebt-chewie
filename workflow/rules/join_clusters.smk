@@ -177,7 +177,8 @@ rule make_cluster_sheets:
         clusters_sub="join_clusters/sub/merged_db/sample_cluster_information.tsv",
         distances="join_clusters/main/merged_db/distance_matrix.tsv",
     output:
-        merged="join_clusters/clusters.json",
+        cluster_json="join_clusters/clusters.json",
+        merged_json="join_clusters/merged_clusters.json",
     params:
         prefix=lambda w, input: get_setting_value(input.settings, "cluster_prefix"),
         main_threshold=lambda w, input: get_setting_value(input.settings, "cluster_distance"),
