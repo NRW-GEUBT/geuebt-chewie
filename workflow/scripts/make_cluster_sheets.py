@@ -190,7 +190,7 @@ def main(
         current_subcluster = subclusters[
             subclusters["cluster_name"] == cluster_row.cluster_name
         ]
-        subcluster_status = current_subcluster.fill_na(
+        subcluster_status = current_subcluster.fillna(
             ""
         ).set_index(
             'cluster_name'
