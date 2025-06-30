@@ -68,7 +68,6 @@ def annnotate_clusters(cluster_group):
     elif sender == {"external"}:
         status, changes = "kept", "none"
     else:
-        print(cluster_group["external_cluster_name"])
         # Skip if cluster is new
         if pd.isna(cluster_group["external_cluster_name"].iloc[0]):
             # If there are both new and kept samples, check if merged or just increase
@@ -149,12 +148,13 @@ def main(
             "representative_sample",
             "external_cluster_name",
             "representative_sample_externalcluster"
-        ]
+        ],
+        dtype=str,
     )
     subclusters = pd.read_csv(
         subcluster_info,
         sep="\t",
-        index_col=0,
+        index_col=False,
         usecols=[
             "sample",
             "cluster_name",
@@ -162,7 +162,8 @@ def main(
             "representative_sample",
             "external_cluster_name",
             "representative_sample_externalcluster"
-        ]
+        ],
+        dtype=str,
     )
     # Generate a new df describing each main cluster with new or kept, and changes with none, increase or merge
     cluster_status = clusters.fillna(
@@ -178,6 +179,20 @@ def main(
         rename_clusters,
         prefix=prefix,
         sep="-"
+    )
+
+    # Join stauts with all samples
+    cluster_merged = clusters.reset_index(
+    )[[
+        "cluster_name",
+        "sample",
+        "Sender",
+    ]].reset_index(
+    ).set_index(
+        "cluster_name"
+    ).join(
+        cluster_status.set_index("cluster_name"),
+        how='left',
     )
     cluster_json_list, merged_json_list = [], []
     # Generate a cluster sheet, getting the relevant sample IDs from the clusters df
@@ -195,9 +210,7 @@ def main(
         # Get subclusters for this cluster
         # Basically same workflow as for clusters but nested for only the cluster
         # If no subcluster subcluster_status is empty
-        current_subcluster = subclusters[
-            subclusters["cluster_name"] == cluster_row.cluster_name
-        ]
+        current_subcluster = subclusters.loc[subclusters['sample'].isin(sample_ids)]
         subcluster_status = current_subcluster.fillna(
             ""
         ).set_index(
@@ -226,10 +239,10 @@ def main(
                 {
                     "subcluster_id": sub_row.new_name,
                     "subcluster_number": int(sub_row.new_name.split(".")[-1]),
-                    "size": len(current_subcluster[current_subcluster["cluster_name"] == sub_row.cluster_name].index.to_list()),
+                    "size": len(current_subcluster[current_subcluster["cluster_name"] == sub_row.cluster_name]["sample"].to_list()),
                     "representative": sub_row.representative_sample,
                     "AD_threshold": sub_dist,
-                    "members": current_subcluster[current_subcluster["cluster_name"] == sub_row.cluster_name].index.to_list(),
+                    "members": current_subcluster[current_subcluster["cluster_name"] == sub_row.cluster_name]["sample"].to_list(),
                 } for sub_row in subcluster_status.itertuples()
             ],
             "distance_matrix": json.loads(dist.to_json(orient="records")),
