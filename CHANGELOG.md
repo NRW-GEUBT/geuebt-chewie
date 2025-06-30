@@ -1,3 +1,7 @@
+### 1.4.3
+
+Fix cluster sheet generation for new clusters
+
 ### 1.4.2
 
 Fix merged_cluster POST

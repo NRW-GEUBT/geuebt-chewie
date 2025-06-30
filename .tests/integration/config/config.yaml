@@ -6,7 +6,7 @@
 # Database
 # --------
 
-API_url: "http://127.0.0.1:8010/API_test"
+API_url: "http://10.184.34.164:8010"
 
 # Input and Output paths
 # ----------------------

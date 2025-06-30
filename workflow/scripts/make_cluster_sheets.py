@@ -168,7 +168,7 @@ def main(
         rename_clusters,
         prefix=prefix,
         sep="-"
-    )
+    ).fillna("")
     cluster_json_list, merged_json_list = [], []
     # Generate a cluster sheet, getting the relevant sample IDs from the clusters df
     for cluster_row in cluster_status.itertuples():
@@ -199,7 +199,7 @@ def main(
             rename_clusters,
             prefix=cluster_row.new_name,
             sep="."
-        )
+        ).fill_na("")
         # create a dict for the cluster sheet
         cluster_sheet = {
             "cluster_id": cluster_row.new_name,
