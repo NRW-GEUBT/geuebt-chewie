@@ -60,16 +60,24 @@ def annnotate_clusters(cluster_group):
     merged_from = None
     # Check status
     sender = set(cluster_group["Sender"])
-    if sender == {"new"}:
+    ext_cluster = set(cluster_group["external_cluster_name"])
+    # New cluster if all samples are new or there is no external name assigned
+    if sender == {"new"} or ext_cluster == {""}:
         status, changes = "new", "increase"
-    elif sender == {"kept"}:
+    # No change if all samples are external
+    elif sender == {"external"}:
         status, changes = "kept", "none"
     else:
-        # If there are both new and kept samples, check if merged or just increase
-        if ";" in cluster_group["external_cluster_name"].iloc[0]:
-            # If external cluster name contains a semicolon, it means it was merged
-            status, changes = "new", "merge"
-            merged_from = cluster_group["external_cluster_name"].iloc[0]
+        print(cluster_group["external_cluster_name"])
+        # Skip if cluster is new
+        if pd.isna(cluster_group["external_cluster_name"].iloc[0]):
+            # If there are both new and kept samples, check if merged or just increase
+            if ";" in cluster_group["external_cluster_name"].iloc[0]:
+                # If external cluster name contains a semicolon, it means it was merged
+                status, changes = "new", "merge"
+                merged_from = cluster_group["external_cluster_name"].iloc[0]
+            else:
+                status, changes = "kept", "increase"
         else:
             status, changes = "kept", "increase"
     # Create a new row with the status and changes
@@ -91,7 +99,7 @@ def rename_clusters(df, prefix, sep="-"):
     # Find the maximum number in the external_cluster_name field
     max_number = 0
     for name_field in set(df["external_cluster_name"]):
-        if pd.isna(name_field):
+        if name_field == "":
             # If the name field is NaN, skip it
             continue
         for name in name_field.split(";"):
@@ -234,6 +242,7 @@ def main(
             })
         else:
             cluster_json_list.append(cluster_sheet)
+
     # Take care of orphans
     orphans = pd.read_csv(
         orphans_info,
@@ -252,10 +261,10 @@ def main(
         distance_index[distance_index.index(sample_id)] = cluster_id
     # If there are no orphans, then the distance matrix is empty
     dist = filter_matrix(
-            distance_index,
-            distance_array,
-            members + cluster_names
-        )
+        distance_index,
+        distance_array,
+        members + cluster_names
+    )
     # Create a dict for the orphans cluster sheet
     orphans_sheet = {
         "cluster_id": f"{prefix}-orphans",
@@ -269,7 +278,9 @@ def main(
         "subclusters": [],
         "distance_matrix": json.loads(dist.to_json(orient="records")),
     }
+
     cluster_json_list.append(orphans_sheet)
+
     # Output JSON files
     with open(cluster_json, "w") as f:
         json.dump(cluster_json_list, f, indent=4)
@@ -286,7 +297,7 @@ if __name__ == '__main__':
         prefix=snakemake.params["prefix"],
         main_dist=snakemake.params["main_threshold"],
         sub_dist=snakemake.params["sub_threshold"],
-        organism= snakemake.params["organism"],
+        organism=snakemake.params["organism"],
         cluster_json=snakemake.output["cluster_json"],
         merged_json=snakemake.output["merged_json"],
     )
