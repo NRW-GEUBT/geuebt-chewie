@@ -157,7 +157,9 @@ def main(
         ]
     )
     # Generate a new df describing each main cluster with new or kept, and changes with none, increase or merge
-    cluster_status = clusters.set_index(
+    cluster_status = clusters.fillna(
+        ""
+    ).set_index(
         'cluster_name'
     ).groupby(
         "cluster_name"
@@ -168,7 +170,7 @@ def main(
         rename_clusters,
         prefix=prefix,
         sep="-"
-    ).fillna("")
+    )
     cluster_json_list, merged_json_list = [], []
     # Generate a cluster sheet, getting the relevant sample IDs from the clusters df
     for cluster_row in cluster_status.itertuples():
@@ -188,7 +190,9 @@ def main(
         current_subcluster = subclusters[
             subclusters["cluster_name"] == cluster_row.cluster_name
         ]
-        subcluster_status = current_subcluster.set_index(
+        subcluster_status = current_subcluster.fill_na(
+            ""
+        ).set_index(
             'cluster_name'
         ).groupby(
             "cluster_name"
@@ -199,7 +203,7 @@ def main(
             rename_clusters,
             prefix=cluster_row.new_name,
             sep="."
-        ).fill_na("")
+        )
         # create a dict for the cluster sheet
         cluster_sheet = {
             "cluster_id": cluster_row.new_name,
