@@ -1,3 +1,7 @@
+### 1.4.8
+
+Skip unchanged clusters when generating cluster sheets
+
 ### 1.4.7
 
 Fix cluster sheet generation for new clusters

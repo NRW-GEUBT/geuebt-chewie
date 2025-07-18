@@ -6,7 +6,7 @@ rule get_settings:
         url=config["API_url"],
         organism=config["organism"],
     message:
-        "[BakCharak] Getting analysis settings"
+        "[Staging] Getting analysis settings"
     conda:
         "../envs/pandas.yaml"
     log:

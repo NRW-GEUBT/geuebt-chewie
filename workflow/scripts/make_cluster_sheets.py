@@ -4,6 +4,9 @@
 """
 Handles cluster and subcluster name assignment and merging.
 Outputs cluster sheet JSON files, with special treatment for merged clusters.
+
+Assumes Cluster naming to be in the form:
+PREFIX-<int main number>.<int sub number>
 """
 
 import sys
@@ -181,7 +184,12 @@ def main(
         sep="-"
     )
 
-    # Join stauts with all samples
+    cluster_status_new = = cluster_status.loc[
+        (cluster_status['status'] != 'kept') & 
+        (cluster_status['changes'] != 'none')
+    ]
+
+    # Join status with all samples
     cluster_merged = clusters.reset_index(
     )[[
         "cluster_name",
@@ -194,9 +202,16 @@ def main(
         cluster_status.set_index("cluster_name"),
         how='left',
     )
+
+    # Skip cluster where nothing is changed
+    cluster_merged = cluster_merged.loc[
+        (cluster_merged['status'] != 'kept') & 
+        (cluster_merged['changes'] != 'none')
+    ]
+
     cluster_json_list, merged_json_list = [], []
-    # Generate a cluster sheet, getting the relevant sample IDs from the clusters df
-    for cluster_row in cluster_status.itertuples():
+    # Generate a cluster sheet, getting the relevant sample IDs from the clusters df - Skip unchanged clusters
+    for cluster_row in cluster_status_new.itertuples():
         sample_ids = list(set(
             clusters[
                 clusters["cluster_name"] == cluster_row.cluster_name
