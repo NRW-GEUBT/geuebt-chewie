@@ -185,7 +185,7 @@ def main(
     )
 
     cluster_status_new = cluster_status.loc[
-        (cluster_status['status'] != 'kept') & 
+        (cluster_status['status'] != 'kept') | 
         (cluster_status['changes'] != 'none')
     ]
 
@@ -205,7 +205,7 @@ def main(
 
     # Skip cluster where nothing is changed
     cluster_merged = cluster_merged.loc[
-        (cluster_merged['status'] != 'kept') & 
+        (cluster_merged['status'] != 'kept') | 
         (cluster_merged['changes'] != 'none')
     ]
 

@@ -25,13 +25,13 @@ rule filter_samples:
         exec 2> {log}
         # Profiles
         head -n1 {input.profiles} > {output.new_profiles}
-        grep -w -f {input.sample_list} {input.profiles} >> {output.new_profiles}
+        grep -w -f {input.sample_list} {input.profiles} >> {output.new_profiles} || true
         # stats
         head -n1 {input.statistics} > {output.new_statistics}
-        grep -w -f {input.sample_list} {input.statistics} >> {output.new_statistics}
+        grep -w -f {input.sample_list} {input.statistics}>> {output.new_statistics} || true
         # timestamps
         head -n1 {input.timestamps} > {output.new_timestamps}
-        grep -w -f {input.sample_list} {input.timestamps} >> {output.new_timestamps}
+        grep -w -f {input.sample_list} {input.timestamps}>> {output.new_timestamps} ||true
         """
 
 
