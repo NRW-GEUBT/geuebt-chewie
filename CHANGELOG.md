@@ -1,3 +1,7 @@
+### 1.4.9
+
+Pipeline will now longer crash when all samples fail QC
+
 ### 1.4.8
 
 Skip unchanged clusters when generating cluster sheets
