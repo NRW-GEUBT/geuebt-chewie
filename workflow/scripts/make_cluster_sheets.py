@@ -184,7 +184,7 @@ def main(
         sep="-"
     )
 
-    cluster_status_new = = cluster_status.loc[
+    cluster_status_new = cluster_status.loc[
         (cluster_status['status'] != 'kept') & 
         (cluster_status['changes'] != 'none')
     ]
