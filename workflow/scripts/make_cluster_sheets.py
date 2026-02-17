@@ -71,15 +71,10 @@ def annnotate_clusters(cluster_group):
     elif sender == {"external"}:
         status, changes = "kept", "none"
     else:
-        # Skip if cluster is new
-        if pd.isna(cluster_group["external_cluster_name"].iloc[0]):
-            # If there are both new and kept samples, check if merged or just increase
-            if ";" in cluster_group["external_cluster_name"].iloc[0]:
-                # If external cluster name contains a semicolon, it means it was merged
-                status, changes = "new", "merge"
-                merged_from = cluster_group["external_cluster_name"].iloc[0]
-            else:
-                status, changes = "kept", "increase"
+        if ";" in cluster_group["external_cluster_name"].iloc[0]:
+            # If external cluster name contains a semicolon, it means it was merged
+            status, changes = "new", "merge"
+            merged_from = cluster_group["external_cluster_name"].iloc[0]
         else:
             status, changes = "kept", "increase"
     # Create a new row with the status and changes

@@ -1,3 +1,7 @@
+### 1.4.10
+
+Fix cluster merging logic
+
 ### 1.4.9
 
 Pipeline will now longer crash when all samples fail QC
