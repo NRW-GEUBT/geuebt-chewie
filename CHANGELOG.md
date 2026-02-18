@@ -1,3 +1,7 @@
+## 1.4.11
+
+Bug fix in merged cluster tree generation and merging with cluster info
+
 ### 1.4.10
 
 Fix cluster merging logic

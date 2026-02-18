@@ -17,12 +17,17 @@ import json
 import pandas as pd
 
 
-def main(new_profiles, clusters, profile_dir, ext_profiles):
+def main(new_profiles, clusters, merged, profile_dir, ext_profiles):
     os.makedirs(profile_dir, exist_ok=True)
 
     # load clusters
     with open(clusters, "r") as fi:
         cluslist = json.load(fi)
+
+    # load merged clusters
+    with open(merged, "r") as fi:
+        mergedlist = json.load(fi)
+        cluslist.extend([entry['new_cluster'] for entry in mergedlist])
 
     # merge profiles
     new_prof = pd.read_csv(new_profiles, index_col=False, sep="\t", dtype=str)
@@ -61,6 +66,7 @@ if __name__ == '__main__':
     main(
         snakemake.input['new_profiles'],
         snakemake.input['clusters'],
+        snakemake.input['merged_clusters'],
         snakemake.output['profile_dir'],
         snakemake.input['ext_profiles'],
     )
