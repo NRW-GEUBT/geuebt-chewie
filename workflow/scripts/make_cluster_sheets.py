@@ -259,8 +259,9 @@ def main(
         }
         # Append to the list for JSON output
         if cluster_row.changes == "merge":
+            merged_from = cluster_row.merged_from
             merged_json_list.append({
-                "merged_from": cluster_row.merged_from,
+                "merged_from": merged_from.split(";"),
                 "new_cluster":cluster_sheet
             })
         else:

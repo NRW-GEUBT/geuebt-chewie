@@ -96,7 +96,7 @@ def main(trees_in, clusters_in, merged_in, qc_out, cluster_dir, merged_clusters,
 
         response = authenticated_request(
             "POST",
-            urljoin(url, "clusters/merged"),
+            urljoin(url, "clusters/merge"),
             token,
             json=record
         )
