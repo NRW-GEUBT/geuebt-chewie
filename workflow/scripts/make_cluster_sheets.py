@@ -267,44 +267,6 @@ def main(
         else:
             cluster_json_list.append(cluster_sheet)
 
-    # Take care of orphans
-    orphans = pd.read_csv(
-        orphans_info,
-        sep="\t",
-        index_col=0
-    )
-    if orphans.empty:
-        members = []
-    else:
-        members = orphans.index.to_list()
-    # Get list of represensentative samples for main clusters
-    repr_samples = cluster_status["representative_sample"].to_list()
-    cluster_names = cluster_status["new_name"].to_list()
-    # Distance_index rename repr samples to the cluster names
-    for sample_id, cluster_id in zip(repr_samples, cluster_names):
-        distance_index[distance_index.index(sample_id)] = cluster_id
-    # If there are no orphans, then the distance matrix is empty
-    dist = filter_matrix(
-        distance_index,
-        distance_array,
-        members + cluster_names
-    )
-    # Create a dict for the orphans cluster sheet
-    orphans_sheet = {
-        "cluster_id": f"{prefix}-orphans",
-        "cluster_number": 0,
-        "organism": organism,
-        "size": len(members),
-        "representative": None,
-        "AD_threshold": main_dist,
-        "members": members,
-        "root_members": members,
-        "subclusters": [],
-        "distance_matrix": json.loads(dist.to_json(orient="records")),
-    }
-
-    cluster_json_list.append(orphans_sheet)
-
     # Output JSON files
     with open(cluster_json, "w") as f:
         json.dump(cluster_json_list, f, indent=4)

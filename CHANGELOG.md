@@ -1,3 +1,7 @@
+## 1.5.0
+
+Orphan clusters are deprecated
+
 ## 1.4.12
 
 More fixes
